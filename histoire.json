@@ -1,0 +1,195 @@
+{
+    "debug": true,
+    "start": {
+        "bgImage": "./images/intro.jpg",
+        "text": "Le voyage d'une vie vous attend.  Elle nous rappelle que chaque étape, même les plus incertaines, fait partie de notre progression. Parfois, nous pouvons nous sentir égarés, mais en réalité, nous avançons toujours vers quelque chose de nouveau et de meilleur. ",
+        "targetScene": "A1",
+        "title": "Un test d'histoire interactive",
+        "buttonLabel": "Débuter l'aventure",
+        "bgAudio": "./audio/help.mp3"
+    },
+    "globalAudio": [
+        {
+            "audio": "./audio/music.mp3",
+            "targetScenes": [
+                "A1",
+                "B1",
+                "B2"
+            ]
+        }
+    ],
+    "flags": [
+        {
+            "flagId": "f1",
+            "value": false
+        },
+        {
+            "flagId": "f2",
+            "value": false
+        }
+    ],
+    "scenes": [
+        {
+            "id": "A1",
+            "title": "Ceci est une bagarre",
+            "textDelay": 1000,
+            "text": "Exsistit autem hoc loco quaedam quaestio subdifficilis, num quando amici novi, digni amicitia, veteribus sint anteponendi, ut equis vetulis teneros anteponere solemus. Indigna homine dubitatio! Non enim debent esse amicitiarum sicut aliarum rerum satietates; veterrima quaeque, ut ea vina, quae vetustatem ferunt, esse debet suavissima; verumque illud est, quod dicitur, multos modios salis simul edendos esse, ut amicitiae munus expletum sit.",
+            "type": "Simple",
+            "bgImage": "./images/fond-a1.jpg",
+            "transition": "fade",
+            "buttonDelay": 2000,
+            "buttons": [
+                {
+                    "label": "Tourner à gauche",
+                    "image": "./images/dogbutton.webp",
+                    "targetScene": "B1",
+                    "labelHide": true
+                },
+                {
+                    "label": "Tourner à droite",
+                    "targetScene": "B2",
+                    "audio": "./audio/police.wav"
+                }
+            ]
+        },
+        {
+            "id": "B1",
+            "title": "Chemin gauche",
+            "type": "Simple",
+            "transition": "blur",
+            "bgImage": "./images/desert.png",
+            "buttonDelay": 2000,
+            "buttons": [
+                {
+                    "label": "Retourner sur nos pas",
+                    "flagCondition": [
+                        {
+                            "flagId": "f2",
+                            "condition": true
+                        }
+                    ],
+                    "targetScene": "A1"
+                },
+                {
+                    "label": "Avancer",
+                    "targetScene": "C2"
+                },
+                {
+                    "label": "Ramasser la clé",
+                    "targetFlag": "f2",
+                    "flagCondition": [
+                        {
+                            "flagId": "f2",
+                            "condition": false
+                        }
+                    ]
+                }
+            ],
+            "buttonsVAlign": "bottom"
+        },
+        {
+            "id": "B2",
+            "title": "Chemin droit",
+            "type": "Simple",
+            "bgImage": "./images/wood.jpg",
+            "buttons": [
+                {
+                    "label": "Tourner à gauche encore",
+                    "targetScene": "C2"
+                },
+                {
+                    "label": "Déverrouiller la porte",
+                    "targetScene": "D1",
+                    "flagCondition": [
+                        {
+                            "flagId": "f1",
+                            "condition": true
+                        },
+                        {
+                            "flagId": "f2",
+                            "condition": true
+                        }
+                    ]
+                },
+                {
+                    "label": "Aller vers la droite...",
+                    "targetScene": "C3"
+                }
+            ],
+            "buttonsVAlign": "top"
+        },
+        {
+            "id": "C2",
+            "title": "Mort!!!!!",
+            "type": "End",
+            "bgVideo": "./videos/vidTest.mp4",
+            "bgAudio": "./audio/satan.mp3",
+            "text": "Vous êtes mort dans d'affreuses souffrances !",
+            "textDelay": 3000,
+            "buttonDelay": 7000,
+            "transition": "blur"
+        },
+        {
+            "id": "C3",
+            "title": "Foret",
+            "type": "Step",
+            "bgImage": "./images/foret.jpg",
+            "transition": "blur",
+            "flagTrigger": "f1",
+            "steps": [
+                {
+                    "text": "Un beau ti chien devant l'escalier...",
+                    "audio": "./audio/spydog.mp3",
+                    "image": "./images/spydog.jpg",
+                    "duration": 2000
+                },
+                {
+                    "text": "Un bruit de fou se fit entendre en sale!",
+                    "audio": "./audio/stair.mp3",
+                    "image": "./images/stairdog.jpg",
+                    "duration": 5000
+                },
+                {
+                    "audio": "./audio/monsterdog.wav",
+                    "image": "./images/monsterdog.webp",
+                    "duration": 3500
+                }
+            ],
+            "buttons": [
+                {
+                    "label": "Revenir sur nos pas",
+                    "targetScene": "B2"
+                }
+            ]
+        },
+        {
+            "id": "D1",
+            "title": "Fin",
+            "type": "End",
+            "bgImage": "./images/desert.png",
+            "text": "Bravo! Vous avez trouvé le trésor!",
+            "textDelay": 3000,
+            "buttonDelay": 7000
+        }
+    ],
+    "style": {
+        "button": [
+            "bg-slate-800  text-slate-50 p-5 text-3xl font-primary hover:bg-slate-50 hover:text-slate-800 cursor-pointer transition-all active:text-slate-400 active:scale-95"
+        ],
+        "imageButton": [
+            "w-fit text-slate-50 p-5 font-primary hover:**:data-label:opacity-100 cursor-pointer hover:*:grayscale-100 hover:*:opacity-50"
+        ],
+        "imageButtonText": [
+            "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-shadow-lg text-3xl transition-all"
+        ],
+        "textBox": [
+            "text-xl text-shadow-md text-slate-50 w-1/2 bg-slate-950/10 p-3 mb-10"
+        ],
+        "header": [
+            "bg-stone-500 text-slate-50"
+        ],
+        "footer": [
+            "bg-stone-500 text-slate-50"
+        ]
+    }
+}
