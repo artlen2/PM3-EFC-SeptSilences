@@ -15,6 +15,6 @@ L’objectif de cette expérience est d’immerger le joueur dans une perception
 En supprimant les buts traditionnels et le sentiment de contrôle, cette expérience cherche à susciter de l'empathie, de l’inconfort et une forme de vulnérabilité, qui reflètent la perception subjective d’une personne souffrant de démence. L’évolution condensée sur quelques jours permet de représenter les différentes phases de la maladie comme une succession de souvenirs fragmentés et altérés.
 
 ### **Notre équipe**
-Elena Savinova - Programmation et gestion de la logistique
-Félix Coté - Design
+Elena Savinova - Programmation et gestion de la logistique, 
+Félix Coté - Design, 
 Charline Kelsen - Script
