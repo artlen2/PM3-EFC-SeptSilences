@@ -1,5 +1,5 @@
 # Septs Silences
-###**À propos**
+### **À propos**
 
 Une vieille femme vit dans un appartement défraîchi. Ignorant qu’elle est atteinte d’Alzheimer, elle voit son quotidien se dégrader. Au début, son entourage est présent, attentif, encore patient face à ses oublis. Mais à mesure que la maladie progresse, son comportement change, devient plus difficile à comprendre, parfois irritant pour ceux qui l’entourent. Peu à peu, les visites se font plus rares, les silences s’installent. 
 
@@ -14,7 +14,7 @@ L’objectif de cette expérience est d’immerger le joueur dans une perception
 
 En supprimant les buts traditionnels et le sentiment de contrôle, cette expérience cherche à susciter de l'empathie, de l’inconfort et une forme de vulnérabilité, qui reflètent la perception subjective d’une personne souffrant de démence. L’évolution condensée sur quelques jours permet de représenter les différentes phases de la maladie comme une succession de souvenirs fragmentés et altérés.
 
-###**Notre équipe**
+### **Notre équipe**
 Elena Savinova - Programmation et gestion de la logistique
 Félix Coté - Design
 Charline Kelsen - Script
