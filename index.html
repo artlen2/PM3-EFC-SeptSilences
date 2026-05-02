@@ -3,70 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mémoire — Une expérience sur l'Alzheimer</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inconsolata:wght@300;400&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="main.css" />
-    <script src="scripts/main.js" defer></script>
+    <title>Sept Silences - Une expérience sur l'Alzheimer</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- <script src="scripts/main.js" defer></script> -->
   </head>
   <body>
-    <div id="bg-current"></div>
-    <div id="bg-next"></div>
-    <div id="bg-overlay"></div>
-
-    <audio id="narration" preload="auto"></audio>
-
-    <nav id="day-nav">
-      <button class="day-btn active unlocked" data-day="1" onclick="goToDay(1)">
-        Jour 1
-      </button>
-      <button class="day-btn locked" data-day="2" onclick="goToDay(2)">
-        Jour 2
-      </button>
-      <button class="day-btn locked" data-day="3" onclick="goToDay(3)">
-        Jour 3
-      </button>
-      <button class="day-btn locked" data-day="4" onclick="goToDay(4)">
-        Jour 4
-      </button>
-      <button class="day-btn locked" data-day="5" onclick="goToDay(5)">
-        Jour 5
-      </button>
-      <button class="day-btn locked" data-day="6" onclick="goToDay(6)">
-        Jour 6
-      </button>
-      <button class="day-btn locked" data-day="7" onclick="goToDay(7)">
-        Jour 7
-      </button>
-    </nav>
-
-    <div id="audio-bar">
-      <span id="audio-label">narration</span>
-      <div id="audio-progress-wrap">
-        <div id="audio-progress-fill"></div>
-      </div>
+    <video autoplay muted loop playsinline id="background-video">
+      <source src="videos/Jour1-2/horloge1.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <!-- page principale -->
+    <div class="content">
+      <img
+        src="images/logoshadow.png"
+        alt="Logo Sept Silences"
+        id="logo-sept"
+      />
+      <li>
+        <a href=""></a>
+        <a href=""></a>
+        <a href=""></a>
+      </li>
     </div>
-
-    <div id="stage"></div>
-
-    <div id="object-hints">
-      <div class="object-hint" id="hint-T">
-        <div class="hint-label">Téléphone</div>
-      </div>
-      <div class="object-hint" id="hint-C">
-        <div class="hint-label">Café</div>
-      </div>
-      <div class="object-hint" id="hint-D">
-        <div class="hint-label">Bain</div>
-      </div>
-      <div class="object-hint" id="hint-L">
-        <div class="hint-label">Liste</div>
-      </div>
-    </div>
-
-    <div id="skip-hint">Espace — passer</div>
-    <div id="progress-bar"></div>
   </body>
 </html>
