@@ -22,6 +22,7 @@
   --color-ink: #2b1405;
   --color-faded: rgba(255, 255, 255, 0.65);
   --color-dust: rgba(255, 255, 255, 0.35);
+  --color-red-bg: rgba(86, 32, 23, 0.9);
   --color-red: #562017;
   --color-golden: #98733f;
 }
@@ -37,8 +38,7 @@
       @apply font-sans;
 
       h1,
-      h2,
-      h3 {
+      h2 {
         @apply font-title;
       }
       h1 {
@@ -55,4 +55,12 @@
       }
     }
   }
+}
+
+.btn-menu-index {
+  @apply py-3 rounded-4xl text-2xl w-full text-center bg-no-repeat bg-cover bg-center transition-all duration-200 hover:brightness-125 hover:scale-105;
+}
+
+.btn-menu-nav {
+  @apply py-1.5 rounded-4xl text-2xl w-full text-center bg-no-repeat bg-cover bg-center transition-all duration-200 hover:brightness-125 hover:scale-105 hover:shadow-xl;
 }
