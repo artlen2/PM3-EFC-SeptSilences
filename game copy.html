@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sept Silences — Une expérience sur l'Alzheimer</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="assets/styles/game.css" />
+    <script src="assets/scripts/main.js" defer></script>
+  </head>
+  <body class="min-h-screen overflow-hidden bg-ink text-cream relative">
+    <!-- VIDEO BACKGROUND
+         La source est mise à jour par game.js à chaque scène.
+         Fichiers attendus : videos/day{X}-scene{Y}.mp4 -->
+    <video
+      id="bg-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      class="fixed top-0 left-0 w-full h-full object-cover -z-10 transition-opacity duration-1200"
+    >
+      <source id="bg-video-src" src="videos/day1-scene1.mp4" type="video/mp4" />
+    </video>
+
+    <!-- Dark overlay — opacity updated per day by js -->
+    <div
+      id="bg-overlay"
+      class="fixed inset-0 bg-black -z-5 pointer-events-none transition-opacity duration-2000"
+      style="opacity: 0.35"
+    ></div>
+
+    <!-- NAV -->
+    <nav
+      class="flex flex-row absolute top-0 items-center text-cream w-full pt-5 px-5 h-1/10"
+    >
+      <div class="flex flex-col w-1/2 gap-4 relative z-1 h-full items-start">
+        <a href="index.html" class="h-full"
+          ><img
+            src="images/logoshadow.png"
+            alt="Logo Sept Silences"
+            class="h-full"
+        /></a>
+      </div>
+      <div class="flex flex-col relative w-1/2 gap-4 items-end">
+        <button
+          id="help-btn"
+          onclick="openHelp()"
+          class="py-3 px-6 w-fit text-center rounded-full text-4xl mt-8 transition-all duration-200 hover:brightness-125 hover:scale-105 hover:shadow text-cream"
+          style="background-image: url(&quot;images/boutoncropped.png&quot;)"
+          aria-label="Aide"
+        >
+          ?
+        </button>
+      </div>
+    </nav>
+
+    <!-- ═══════════════════════════════════════════════
+         HELP OVERLAY
+    ═══════════════════════════════════════════════ -->
+    <div
+      id="help-overlay"
+      class="fixed inset-0 z-[100] flex items-center justify-center bg-ink/70 opacity-0 pointer-events-none transition-opacity duration-500"
+      style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px)"
+    >
+      <div
+        class="relative bg-red-bg text-cream rounded-2xl p-12 max-w-xl w-full mx-6 flex flex-col gap-8"
+      >
+        <button
+          onclick="closeHelp()"
+          class="absolute top-5 right-6 text-cream/50 hover:text-cream text-3xl transition-colors duration-200 font-title"
+          aria-label="Fermer"
+        >
+          ✕
+        </button>
+
+        <h2 class="font-title text-center">Comment naviguer</h2>
+
+        <!-- Objets -->
+        <div class="flex flex-col gap-4">
+          <p class="text-cream/60 text-sm tracking-widest uppercase font-sans">
+            Les objets disponibles
+          </p>
+          <div class="grid grid-cols-2 gap-4">
+            <div
+              class="flex flex-col gap-1 border border-cream/20 rounded-xl p-4"
+            >
+              <span class="font-title text-xl text-golden">Téléphone</span>
+              <span class="text-cream/70 text-sm font-sans"
+                >Toucher le téléphone pour avancer dans la scène
+                correspondante.</span
+              >
+            </div>
+            <div
+              class="flex flex-col gap-1 border border-cream/20 rounded-xl p-4"
+            >
+              <span class="font-title text-xl text-golden">Café</span>
+              <span class="text-cream/70 text-sm font-sans"
+                >Toucher la tasse de café pour avancer dans la scène
+                correspondante.</span
+              >
+            </div>
+            <div
+              class="flex flex-col gap-1 border border-cream/20 rounded-xl p-4"
+            >
+              <span class="font-title text-xl text-golden">Bain</span>
+              <span class="text-cream/70 text-sm font-sans"
+                >Toucher l'objet du bain pour avancer dans la scène
+                correspondante.</span
+              >
+            </div>
+            <div
+              class="flex flex-col gap-1 border border-cream/20 rounded-xl p-4"
+            >
+              <span class="font-title text-xl text-golden">Liste</span>
+              <span class="text-cream/70 text-sm font-sans"
+                >Toucher la liste pour avancer dans la scène
+                correspondante.</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Explication -->
+        <div
+          class="flex flex-col gap-3 border-t border-cream/20 pt-6 text-sm text-cream/70 leading-relaxed font-sans"
+        >
+          <p>
+            Chaque scène est liée à un objet précis. Seul l'objet mis en
+            évidence en bas de l'écran est actif — toucher les autres n'aura
+            aucun effet.
+          </p>
+          <p>
+            Suivez les indications pour savoir quel objet interagir.
+            L'expérience avancera une fois l'objet touché.
+          </p>
+          <p class="text-cream/40">
+            Vous pouvez également appuyer sur la barre espace pour passer une
+            scène.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         JOUR NAV (top center)
+    ═══════════════════════════════════════════════ -->
+    <nav id="day-nav" class="fixed top-6 left-1/2 -translate-x-1/2 flex z-30">
+      <button class="day-btn active unlocked" data-day="1" onclick="goToDay(1)">
+        Jour 1
+      </button>
+      <button class="day-btn locked" data-day="2" onclick="goToDay(2)">
+        Jour 2
+      </button>
+      <button class="day-btn locked" data-day="3" onclick="goToDay(3)">
+        Jour 3
+      </button>
+      <button class="day-btn locked" data-day="4" onclick="goToDay(4)">
+        Jour 4
+      </button>
+      <button class="day-btn locked" data-day="5" onclick="goToDay(5)">
+        Jour 5
+      </button>
+      <button class="day-btn locked" data-day="6" onclick="goToDay(6)">
+        Jour 6
+      </button>
+      <button class="day-btn locked" data-day="7" onclick="goToDay(7)">
+        Jour 7
+      </button>
+    </nav>
+
+    <!-- ═══════════════════════════════════════════════
+         STAGE — contenu injecté par game.js
+    ═══════════════════════════════════════════════ -->
+    <div
+      id="stage"
+      class="fixed inset-0 flex items-center justify-center z-10 pt-[10vh]"
+    ></div>
+
+    <!-- ═══════════════════════════════════════════════
+         OBJECT HINTS
+    ═══════════════════════════════════════════════ -->
+    <div
+      id="object-hints"
+      class="fixed bottom-10 left-1/2 -translate-x-1/2 flex gap-5 z-20 transition-opacity duration-700"
+      style="opacity: 0"
+    >
+      <div
+        id="hint-T"
+        class="flex flex-col items-center gap-2 opacity-20 transition-all duration-500"
+      >
+        <div
+          class="hint-circle w-12 h-12 rounded-full border border-cream/20 bg-white/5 flex items-center justify-center backdrop-blur-sm font-sans text-xs tracking-widest transition-all duration-400"
+        >
+          T
+        </div>
+        <span
+          class="hint-label font-sans text-[9px] tracking-[0.18em] uppercase text-cream/40 transition-colors duration-400"
+          >Téléphone</span
+        >
+      </div>
+      <div
+        id="hint-C"
+        class="flex flex-col items-center gap-2 opacity-20 transition-all duration-500"
+      >
+        <div
+          class="hint-circle w-12 h-12 rounded-full border border-cream/20 bg-white/5 flex items-center justify-center backdrop-blur-sm font-sans text-xs tracking-widest transition-all duration-400"
+        >
+          C
+        </div>
+        <span
+          class="hint-label font-sans text-[9px] tracking-[0.18em] uppercase text-cream/40 transition-colors duration-400"
+          >Café</span
+        >
+      </div>
+      <div
+        id="hint-D"
+        class="flex flex-col items-center gap-2 opacity-20 transition-all duration-500"
+      >
+        <div
+          class="hint-circle w-12 h-12 rounded-full border border-cream/20 bg-white/5 flex items-center justify-center backdrop-blur-sm font-sans text-xs tracking-widest transition-all duration-400"
+        >
+          D
+        </div>
+        <span
+          class="hint-label font-sans text-[9px] tracking-[0.18em] uppercase text-cream/40 transition-colors duration-400"
+          >Bain</span
+        >
+      </div>
+      <div
+        id="hint-L"
+        class="flex flex-col items-center gap-2 opacity-20 transition-all duration-500"
+      >
+        <div
+          class="hint-circle w-12 h-12 rounded-full border border-cream/20 bg-white/5 flex items-center justify-center backdrop-blur-sm font-sans text-xs tracking-widest transition-all duration-400"
+        >
+          L
+        </div>
+        <span
+          class="hint-label font-sans text-[9px] tracking-[0.18em] uppercase text-cream/40 transition-colors duration-400"
+          >Liste</span
+        >
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         AUDIO BAR
+    ═══════════════════════════════════════════════ -->
+    <div
+      id="audio-bar"
+      class="fixed top-6 right-7 flex items-center gap-3 z-30 transition-opacity duration-500"
+      style="opacity: 0"
+    >
+      <span
+        class="font-sans text-[9px] tracking-[0.2em] uppercase text-cream/35"
+        >narration</span
+      >
+      <div class="w-18 h-px bg-cream/15">
+        <div id="audio-progress-fill" class="h-full bg-golden w-0"></div>
+      </div>
+    </div>
+
+    <!-- SKIP HINT -->
+    <div
+      id="skip-hint"
+      class="fixed bottom-5 right-7 font-sans text-[9px] tracking-[0.2em] uppercase text-cream/20 z-30 transition-opacity duration-500"
+      style="opacity: 0"
+    >
+      Espace — passer
+    </div>
+
+    <!-- PROGRESS BAR -->
+    <div
+      id="progress-bar"
+      class="fixed bottom-0 left-0 h-px bg-golden z-50 transition-all duration-1000 w-0"
+      style="opacity: 0.35"
+    ></div>
+
+    <!-- AUDIO -->
+    <audio id="narration" preload="auto"></audio>
+  </body>
+</html>

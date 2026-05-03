@@ -1,212 +1,68 @@
-// ─── DATA DE L'HISTOIRE ───────────────────────────────────────────────────────────────
-// key: quel Makey Makey trigger la scène
-// T = téléphone  C = café  D = douche  L = liste
-
-const DAYS = [
-  {
-    day: 1,
-    scenes: [
-      {
-        key: "C",
-        label: "Jour 1 — Le matin",
-        title: "Le café sent comme toujours.",
-        text: "Marguerite se lève à six heures. Elle sait où est tout. La tasse bleue. La cuillère à thé. La fenêtre qui donne sur le jardin où les rosiers poussent depuis quarante ans.",
-        quote: null,
-      },
-      {
-        key: "T",
-        label: "Jour 1 — L'après-midi",
-        title: "Sa fille téléphone.",
-        text: "Elles parlent longtemps. De rien en particulier. De tout. Marguerite se rappelle chaque anniversaire, chaque prénom des petits-enfants.",
-        quote: "« Tu vas bien, maman ? » — « Comme un charme, ma chérie. »",
-      },
-      {
-        key: "D",
-        label: "Jour 1 — Le soir",
-        title: "Elle ferme les yeux sans peur.",
-        text: "Le monde est encore entier. Les souvenirs sont là, rangés, fidèles. Elle s'endort en pensant à demain.",
-        quote: null,
-      },
-    ],
-  },
-  {
-    day: 2,
-    scenes: [
-      {
-        key: "C",
-        label: "Jour 2 — Le matin",
-        title: "Où est la cuillère à thé ?",
-        text: "Elle est sûre de l'avoir vue hier. Elle cherche cinq minutes. Elle la trouve dans le bon tiroir. Ce n'est rien, pense-t-elle.",
-        quote: null,
-      },
-      {
-        key: "L",
-        label: "Jour 2 — L'après-midi",
-        title: "Un mot lui échappe.",
-        text: "Elle parle à la voisine du… du… de l'appareil dans la cuisine. Elle fait un geste de la main.",
-        quote: "« Le grille-pain ? » — « Oui. C'est ça. »",
-      },
-      {
-        key: "D",
-        label: "Jour 2 — Le soir",
-        title: "Elle relit la même page deux fois.",
-        text: "Elle ne s'en rend pas compte tout de suite. Quand elle comprend, elle ferme le livre. Elle regarde par la fenêtre un long moment.",
-        quote: null,
-      },
-    ],
-  },
-  {
-    day: 3,
-    scenes: [
-      {
-        key: "C",
-        label: "Jour 3 — Le matin",
-        title: "La date lui résiste.",
-        text: "Elle cherche dans sa tête. On est en… elle sait que c'est l'automne. Les feuilles le disent. Mais le chiffre exact refuse de venir.",
-        quote: null,
-      },
-      {
-        key: "T",
-        label: "Jour 3 — L'après-midi",
-        title: "Son fils est venu.",
-        text: "Elle lui prépare du café. Elle lui demande deux fois comment va sa femme. Il ne dit rien la deuxième fois. Il sourit différemment.",
-        quote:
-          "« Tu m'as déjà posé la question, maman. » — Un silence. — « Ah. »",
-      },
-      {
-        key: "L",
-        label: "Jour 3 — Le soir",
-        title: "Elle écrit son nom sur une enveloppe.",
-        text: "Elle s'arrête au milieu. Elle regarde les lettres. Elles lui semblent soudain étranges, comme appartenant à quelqu'un d'autre.",
-        quote: null,
-      },
-    ],
-  },
-  {
-    day: 4,
-    scenes: [
-      {
-        key: "C",
-        label: "Jour 4 — Le matin",
-        title: "Elle a laissé le gaz ouvert.",
-        text: "Sa fille l'a trouvé en arrivant. Elle n'a pas crié. Elle a juste fermé le robinet et pris sa mère dans ses bras longtemps.",
-        quote: null,
-      },
-      {
-        key: "T",
-        label: "Jour 4 — L'après-midi",
-        title: "Le médecin parle doucement.",
-        text: "Il y a des mots que Marguerite entend sans tout à fait les attraper. Sa fille prend des notes.",
-        quote: "« Maladie d'Alzheimer à stade précoce. »",
-      },
-      {
-        key: "D",
-        label: "Jour 4 — Le soir",
-        title: "Elle pleure une seule fois.",
-        text: "Dans la salle de bains, le robinet ouvert pour couvrir le son. Puis elle se lave le visage. Elle revient dans le salon. Elle sourit à sa fille.",
-        quote: null,
-      },
-    ],
-  },
-  {
-    day: 5,
-    scenes: [
-      {
-        key: "L",
-        label: "Jour 5 — Le matin",
-        title: "Les visages flottent.",
-        text: "Elle sait qu'elle connaît cet homme dans le cadre photo. Elle sait qu'elle l'aime. Le nom vient par vagues, s'éloigne, revient à moitié.",
-        quote: null,
-      },
-      {
-        key: "T",
-        label: "Jour 5 — L'après-midi",
-        title: "Elle cherche sa mère.",
-        text: "Sa mère est morte depuis vingt ans. Mais aujourd'hui, Marguerite la cherche dans chaque pièce. Elle l'appelle doucement.",
-        quote: "« Maman ? Tu es là ? »",
-      },
-      {
-        key: "C",
-        label: "Jour 5 — Le soir",
-        title: "Quelque chose d'ancien revient.",
-        text: "Une chanson. Elle la chante sans s'en rendre compte, à voix basse, en rangeant la vaisselle. Ses mains savent encore.",
-        quote: null,
-      },
-    ],
-  },
-  {
-    day: 6,
-    scenes: [
-      {
-        key: "D",
-        label: "Jour 6 — Le matin",
-        title: "Le miroir la déroute.",
-        text: "Cette femme aux cheveux blancs. Elle la connaît. Mais quelque chose ne coïncide pas. Elle touche le verre.",
-        quote: null,
-      },
-      {
-        key: "T",
-        label: "Jour 6 — L'après-midi",
-        title: "Sa petite-fille lui lit une histoire.",
-        text: "Le sens des mots s'évapore vite, mais la voix reste. La voix est chaude. Marguerite ferme les yeux et se laisse porter.",
-        quote: "« Raconte-la encore. »",
-      },
-      {
-        key: "L",
-        label: "Jour 6 — Le soir",
-        title: "Elle ne sait plus où elle est.",
-        text: "Sa fille lui dit le nom de la rue. Le nom de la ville. Marguerite hoche la tête. Elle fait semblant de reconnaître.",
-        quote: null,
-      },
-    ],
-  },
-  {
-    day: 7,
-    scenes: [
-      {
-        key: "C",
-        label: "Jour 7 — Le matin",
-        title: "Les mots sont presque tous partis.",
-        text: "Il reste des fragments. Des images. La chaleur d'une main. L'odeur du café. Des choses que le langage ne peut plus nommer mais que le corps garde.",
-        quote: null,
-      },
-      {
-        key: "D",
-        label: "Jour 7 — L'après-midi",
-        title: "Elle reconnaît quelque chose.",
-        text: "Pas un nom. Pas un visage précisément. Mais une présence. Sa fille lui tient la main et Marguerite serre fort.",
-        quote: "« … »",
-      },
-      {
-        key: "L",
-        label: "Jour 7 — Le soir",
-        title: "Elle est encore là.",
-        text: "Différemment. Dans les espaces entre les mots. Dans la pression d'une main. Dans la chanson que ses lèvres murmurent sans que sa tête s'en souvienne.",
-        quote: null,
-      },
-    ],
-  },
-];
-
 // ─── STATE ───────────────────────────────────────────────────────────────────
+let DAYS = [];
 let currentDay = 1;
 let currentScene = 0;
 let unlockedDays = new Set([1]);
-let fragmentTimers = [];
 
+// ─── DOM REFS ────────────────────────────────────────────────────────────────
 const audio = document.getElementById("narration");
-const bgCurrent = document.getElementById("bg-current");
-const bgNext = document.getElementById("bg-next");
+const bgVideo = document.getElementById("bg-video");
+const bgVideoSrc = document.getElementById("bg-video-src");
 const bgOverlay = document.getElementById("bg-overlay");
 const progressFill = document.getElementById("audio-progress-fill");
+const stage = document.getElementById("stage");
+const objectHints = document.getElementById("object-hints");
+const audioBar = document.getElementById("audio-bar");
+const skipHint = document.getElementById("skip-hint");
+const progressBar = document.getElementById("progress-bar");
+
+// Overlay opacity per day (index 0 = day 1)
+const OVERLAY_VALUES = [0.35, 0.42, 0.48, 0.55, 0.62, 0.7, 0.78];
+
+// ─── INIT — load JSON then start ─────────────────────────────────────────────
+fetch("histoire.json")
+  .then((r) => r.json())
+  .then((data) => {
+    DAYS = data;
+    render(true);
+  })
+  .catch((err) => {
+    console.error("Impossible de charger days.json :", err);
+  });
+
+// ─── HELP OVERLAY ────────────────────────────────────────────────────────────
+function openHelp() {
+  const overlay = document.getElementById("help-overlay");
+  overlay.classList.remove("opacity-0", "pointer-events-none");
+  overlay.classList.add("opacity-100");
+}
+
+function closeHelp() {
+  const overlay = document.getElementById("help-overlay");
+  overlay.classList.add("opacity-0", "pointer-events-none");
+  overlay.classList.remove("opacity-100");
+}
+
+document.getElementById("help-overlay").addEventListener("click", (e) => {
+  if (e.target === e.currentTarget) closeHelp();
+});
+
+// ─── VIDEO ───────────────────────────────────────────────────────────────────
+function loadVideo(path) {
+  bgVideo.style.opacity = "0";
+  setTimeout(() => {
+    bgVideoSrc.src = path;
+    bgVideo.load();
+    bgVideo.play().catch(() => {});
+    bgVideo.style.opacity = "1";
+  }, 600);
+}
 
 // ─── AUDIO ───────────────────────────────────────────────────────────────────
-function loadAudio(day, scene) {
-  audio.src = `audio/day${day}-scene${scene + 1}.mp3`;
+function loadAudio(path) {
+  audio.src = path;
   audio.load();
-  audio.play().catch(() => {
-    /* autoplay blocked — needs user interaction first */
-  });
+  audio.play().catch(() => {});
 }
 
 audio.addEventListener("timeupdate", () => {
@@ -215,92 +71,129 @@ audio.addEventListener("timeupdate", () => {
   }
 });
 
-// ─── BACKGROUND ──────────────────────────────────────────────────────────────
-function crossfadeBackground(day, scene) {
-  const path = `images/day${day}-scene${scene + 1}.jpg`;
-  bgNext.style.backgroundImage = `url('${path}')`;
-  bgNext.style.opacity = "1";
-  setTimeout(() => {
-    bgCurrent.style.backgroundImage = `url('${path}')`;
-    bgNext.style.opacity = "0";
-  }, 1200);
-}
-
-// ─── OVERLAY OPACITY per day ─────────────────────────────────────────────────
-const OVERLAYS = [0.35, 0.42, 0.48, 0.55, 0.62, 0.7, 0.78];
-
 // ─── OBJECT HINTS ────────────────────────────────────────────────────────────
 function updateHints() {
-  const availableKey = DAYS[currentDay - 1].scenes[currentScene].key;
-  document.getElementById("object-hints").classList.add("visible");
+  const available = DAYS[currentDay - 1].scenes[currentScene].key;
+
+  objectHints.style.opacity = "1";
+  audioBar.style.opacity = "1";
+  skipHint.style.opacity = "1";
+
   ["T", "C", "D", "L"].forEach((k) => {
-    document
-      .getElementById("hint-" + k)
-      .classList.toggle("available", k === availableKey);
+    const el = document.getElementById("hint-" + k);
+    if (k === available) {
+      el.classList.add("hint-available");
+    } else {
+      el.classList.remove("hint-available");
+    }
   });
-  document.getElementById("skip-hint").classList.add("visible");
-  document.getElementById("audio-bar").classList.add("visible");
+}
+
+// ─── DAY NAV ─────────────────────────────────────────────────────────────────
+function updateDayNav() {
+  document.querySelectorAll(".day-btn").forEach((btn) => {
+    const d = parseInt(btn.dataset.day);
+    btn.classList.toggle("active", d === currentDay);
+    btn.classList.toggle("locked", !unlockedDays.has(d));
+    btn.classList.toggle("unlocked", unlockedDays.has(d));
+  });
+}
+
+// ─── PROGRESS BAR ────────────────────────────────────────────────────────────
+function updateProgressBar() {
+  const total = DAYS.reduce((a, d) => a + d.scenes.length, 0);
+  const done =
+    DAYS.slice(0, currentDay - 1).reduce((a, d) => a + d.scenes.length, 0) +
+    currentScene;
+  progressBar.style.width = (done / (total - 1)) * 100 + "%";
 }
 
 // ─── RENDER ──────────────────────────────────────────────────────────────────
 function render(instant = false) {
-  const s = DAYS[currentDay - 1].scenes[currentScene];
-  const stage = document.getElementById("stage");
-  const existing = stage.querySelector(".scene");
+  if (!DAYS.length) return;
 
+  const s = DAYS[currentDay - 1].scenes[currentScene];
+  const existing = stage.querySelector(".scene-el");
+
+  // Fade out existing scene
   if (existing && !instant) {
     existing.style.opacity = "0";
     existing.style.pointerEvents = "none";
   }
 
-  setTimeout(
-    () => {
-      stage.innerHTML = `
-      <div class="scene blur-${currentDay}">
-        <div class="scene-inner">
-          <div class="day-label">${s.label}</div>
-          <h2 class="scene-title">${s.title}</h2>
-          <p class="scene-text">${s.text}</p>
-          ${s.quote ? `<blockquote class="scene-quote">${s.quote}</blockquote>` : ""}
+  const delay = existing && !instant ? 700 : 0;
+
+  setTimeout(() => {
+    stage.innerHTML = `
+      <div class="scene-el blur-day-${currentDay} absolute inset-0 flex flex-col items-center justify-center px-16 pb-24 opacity-0 pointer-events-none">
+        <div class="max-w-2xl w-full text-center flex flex-col items-center gap-6">
+
+          <p class="scene-label font-sans text-[10px] tracking-[0.3em] uppercase text-dust
+                     opacity-0 translate-y-1.5 transition-all duration-500 delay-300">
+            ${s.label}
+          </p>
+
+          <h2 class="scene-title font-title text-5xl leading-tight text-cream
+                      opacity-0 translate-y-2 transition-all duration-700 delay-[450ms]"
+              style="text-shadow: 0 2px 20px rgba(0,0,0,0.6)">
+            ${s.title}
+          </h2>
+
+          <p class="scene-text font-sans text-lg leading-relaxed text-faded
+                     opacity-0 translate-y-2 transition-all duration-700 delay-[600ms]"
+             style="text-shadow: 0 1px 8px rgba(0,0,0,0.7)">
+            ${s.text}
+          </p>
+
+          ${
+            s.quote
+              ? `
+          <blockquote class="scene-quote font-title text-xl italic leading-relaxed text-cream/80
+                             border-l border-cream/25 pl-6 text-left
+                             opacity-0 translate-y-2 transition-all duration-700 delay-[550ms]"
+                      style="text-shadow: 0 1px 8px rgba(0,0,0,0.6)">
+            ${s.quote}
+          </blockquote>`
+              : ""
+          }
+
         </div>
       </div>`;
 
-      bgOverlay.style.opacity = OVERLAYS[currentDay - 1];
-      crossfadeBackground(currentDay, currentScene);
-      loadAudio(currentDay, currentScene);
-      progressFill.style.width = "0%";
+    // Update environment
+    bgOverlay.style.opacity = OVERLAY_VALUES[currentDay - 1];
+    loadVideo(s.video);
+    loadAudio(s.audio);
+    progressFill.style.width = "0%";
 
-      // Progress bar
-      const total = DAYS.reduce((a, d) => a + d.scenes.length, 0);
-      const done =
-        DAYS.slice(0, currentDay - 1).reduce((a, d) => a + d.scenes.length, 0) +
-        currentScene;
-      document.getElementById("progress-bar").style.width =
-        (done / (total - 1)) * 100 + "%";
+    updateDayNav();
+    updateProgressBar();
+    updateHints();
 
-      // Day nav
-      document.querySelectorAll(".day-btn").forEach((btn) => {
-        const d = parseInt(btn.dataset.day);
-        btn.classList.toggle("active", d === currentDay);
-        btn.classList.toggle("locked", !unlockedDays.has(d));
-        btn.classList.toggle("unlocked", unlockedDays.has(d));
-      });
+    // Fade in scene and animate children
+    requestAnimationFrame(() => {
+      const el = stage.querySelector(".scene-el");
+      if (!el) return;
 
-      updateHints();
-      if (currentDay >= 4) spawnFragments(currentDay);
-
-      // Fade in
       requestAnimationFrame(() => {
-        const scene = stage.querySelector(".scene");
-        if (scene) {
+        el.style.opacity = "1";
+        el.style.pointerEvents = "auto";
+
+        el.querySelectorAll(
+          ".scene-label, .scene-title, .scene-text, .scene-quote",
+        ).forEach((child) => {
           requestAnimationFrame(() => {
-            scene.classList.add("active");
+            child.classList.remove(
+              "opacity-0",
+              "translate-y-2",
+              "translate-y-1.5",
+            );
+            child.classList.add("opacity-100", "translate-y-0");
           });
-        }
+        });
       });
-    },
-    existing && !instant ? 700 : 0,
-  );
+    });
+  }, delay);
 }
 
 // ─── NAVIGATION ──────────────────────────────────────────────────────────────
@@ -312,25 +205,25 @@ function goToDay(day) {
 }
 
 function advanceScene() {
+  if (!DAYS.length) return;
+
   const dayData = DAYS[currentDay - 1];
+
   if (currentScene < dayData.scenes.length - 1) {
     currentScene++;
-  } else if (currentDay < 7) {
+  } else if (currentDay < DAYS.length) {
     currentDay++;
     currentScene = 0;
     unlockedDays.add(currentDay);
   }
-  // If last scene of last day, do nothing
+  // Last scene of last day — do nothing
+
   render();
 }
 
 // ─── MAKEY MAKEY INPUT ───────────────────────────────────────────────────────
-// Default Makey Makey wiring:
-//   T key = téléphone object
-//   C key = café object
-//   D key = bain object
-//   L key = liste object
-//   Space = skip (advance regardless of which object is expected)
+// T = téléphone   C = café   D = bain   L = liste
+// Space = passer la scène   Escape = fermer l'overlay
 
 document.addEventListener("keydown", (e) => {
   const k = e.key.toUpperCase();
@@ -342,12 +235,14 @@ document.addEventListener("keydown", (e) => {
     return;
   }
 
+  if (e.key === "Escape") {
+    closeHelp();
+    return;
+  }
+
   if (["T", "C", "D", "L"].includes(k)) {
-    const expected = DAYS[currentDay - 1].scenes[currentScene].key;
+    const expected = DAYS[currentDay - 1]?.scenes[currentScene]?.key;
     if (k === expected) advanceScene();
-    // Wrong object — nothing happens
+    // Mauvais objet = rien
   }
 });
-
-// ─── INIT ─────────────────────────────────────────────────────────────────────
-render(true);

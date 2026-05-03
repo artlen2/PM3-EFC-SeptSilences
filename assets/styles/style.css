@@ -57,6 +57,7 @@
   }
 }
 
+/* MENU */
 .btn-menu-index {
   @apply py-3 rounded-4xl text-2xl w-full text-center bg-no-repeat bg-cover bg-center transition-all duration-200 hover:brightness-125 hover:scale-105;
 }
@@ -71,4 +72,132 @@
 
 .team-card {
   @apply bg-red-bg text-cream rounded-xl p-10 h-full text-left w-full text-2xl flex flex-col gap-3;
+}
+
+/* GAME */
+/* Degradation filters per day — cannot be done in Tailwind */
+.blur-day-1 .scene-text {
+  filter: none;
+}
+.blur-day-2 .scene-text {
+  filter: blur(0.3px);
+}
+.blur-day-3 .scene-text {
+  filter: blur(0.5px);
+}
+.blur-day-4 .scene-text {
+  filter: blur(0.8px);
+}
+.blur-day-5 .scene-text {
+  filter: blur(1.2px);
+  opacity: 0.7;
+}
+.blur-day-6 .scene-text {
+  filter: blur(1.7px);
+  opacity: 0.55;
+}
+.blur-day-7 .scene-text {
+  filter: blur(2.4px);
+  opacity: 0.35;
+}
+.blur-day-6 .scene-title,
+.blur-day-7 .scene-title {
+  filter: blur(0.7px);
+  opacity: 0.65;
+}
+.blur-day-7 .scene-quote {
+  filter: blur(1.4px);
+  opacity: 0.35;
+}
+
+/* Fade transition on scene swap */
+.scene-fade-out {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Memory fragment words */
+.fragment {
+  position: fixed;
+  font-family: "CFParis", serif;
+  font-style: italic;
+  color: rgba(201, 193, 181, 0.18);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 3s ease;
+  z-index: 5;
+}
+
+/* Audio progress bar */
+#audio-progress-fill {
+  transition: width 0.25s linear;
+}
+
+/* Overlay backdrop blur */
+#help-overlay {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Day nav — trop spécifique pour Tailwind inline */
+.day-btn {
+  background: none;
+  border: none;
+  font-family: "Hawkes", sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(201, 193, 181, 0.2);
+  cursor: pointer;
+  padding: 8px 13px;
+  transition: color 0.4s;
+  position: relative;
+}
+.day-btn::after {
+  content: "";
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 1px;
+  background: #98733f;
+  transition: width 0.4s;
+}
+.day-btn.active {
+  color: rgba(201, 193, 181, 0.9);
+}
+.day-btn.active::after {
+  width: 14px;
+}
+.day-btn.unlocked:not(.active) {
+  color: rgba(201, 193, 181, 0.45);
+}
+.day-btn.locked {
+  opacity: 0.15;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Available hint */
+.hint-available .hint-circle {
+  border-color: rgba(152, 115, 63, 0.9) !important;
+  background: rgba(152, 115, 63, 0.18) !important;
+  box-shadow: 0 0 22px rgba(152, 115, 63, 0.3);
+}
+.hint-available .hint-label {
+  color: #98733f !important;
+}
+.hint-available {
+  opacity: 1 !important;
+  animation: pulse-hint 2.5s ease-in-out infinite;
+}
+@keyframes pulse-hint {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
 }
