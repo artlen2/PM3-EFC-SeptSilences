@@ -326,11 +326,11 @@ function advanceScene() {
 
 // ─── MAKEY MAKEY INPUT ───────────────────────────────────────────────────────
 // Default Makey Makey wiring:
-//   T key → téléphone object
-//   C key → café object
-//   D key → bain object
-//   L key → liste object
-//   Space → skip (advance regardless of which object is expected)
+//   T key = téléphone object
+//   C key = café object
+//   D key = bain object
+//   L key = liste object
+//   Space = skip (advance regardless of which object is expected)
 
 document.addEventListener("keydown", (e) => {
   const k = e.key.toUpperCase();
@@ -348,62 +348,6 @@ document.addEventListener("keydown", (e) => {
     // Wrong object — nothing happens
   }
 });
-
-// ─── MEMORY FRAGMENTS ────────────────────────────────────────────────────────
-const WORDS = [
-  "maman",
-  "le jardin",
-  "mardi",
-  "où suis-je",
-  "la tasse bleue",
-  "comment tu t'appelles",
-  "je sais",
-  "attends",
-  "hier",
-  "c'était quoi déjà",
-  "reste",
-  "je me souviens",
-  "...",
-  "non",
-];
-
-function clearFragments() {
-  fragmentTimers.forEach(clearTimeout);
-  fragmentTimers = [];
-  document.querySelectorAll(".fragment").forEach((f) => f.remove());
-}
-
-function spawnFragments(day) {
-  clearFragments();
-  const count = Math.min(2 + (day - 4) * 2, 9);
-  const maxOpacity = Math.min(0.08 + (day - 4) * 0.05, 0.28);
-
-  for (let i = 0; i < count; i++) {
-    const t = setTimeout(
-      () => {
-        const el = document.createElement("div");
-        el.className = "fragment";
-        el.textContent = WORDS[Math.floor(Math.random() * WORDS.length)];
-        el.style.left = 8 + Math.random() * 84 + "%";
-        el.style.top = 12 + Math.random() * 76 + "%";
-        el.style.fontSize = 10 + Math.random() * 9 + "px";
-        document.body.appendChild(el);
-        setTimeout(() => {
-          el.style.opacity = maxOpacity;
-        }, 100);
-        setTimeout(
-          () => {
-            el.style.opacity = "0";
-            setTimeout(() => el.remove(), 3000);
-          },
-          3500 + Math.random() * 3000,
-        );
-      },
-      i * 1400 + Math.random() * 900,
-    );
-    fragmentTimers.push(t);
-  }
-}
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 render(true);
