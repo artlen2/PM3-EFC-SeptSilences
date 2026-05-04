@@ -1,10 +1,10 @@
-// ─── STATE ───────────────────────────────────────────────────────────────────
+// ─── STATE
 let DAYS = [];
 let currentDay = 1;
 let currentScene = 0;
 let unlockedDays = new Set([1]);
 
-// ─── DOM REFS ────────────────────────────────────────────────────────────────
+// ─── DOM REFS
 const audio = document.getElementById("narration");
 const bgVideo = document.getElementById("bg-video");
 const bgVideoSrc = document.getElementById("bg-video-src");
@@ -19,7 +19,7 @@ const progressBar = document.getElementById("progress-bar");
 // Overlay opacity per day (index 0 = day 1)
 const OVERLAY_VALUES = [0.35, 0.42, 0.48, 0.55, 0.62, 0.7, 0.78];
 
-// ─── INIT — load JSON then start ─────────────────────────────────────────────
+// ─── INIT — load JSON then start
 fetch("histoire.json")
   .then((r) => r.json())
   .then((data) => {
@@ -30,7 +30,7 @@ fetch("histoire.json")
     console.error("Impossible de charger days.json :", err);
   });
 
-// ─── HELP OVERLAY ────────────────────────────────────────────────────────────
+// ─── HELP OVERLAY
 function openHelp() {
   const overlay = document.getElementById("help-overlay");
   overlay.classList.remove("opacity-0", "pointer-events-none");
@@ -47,7 +47,7 @@ document.getElementById("help-overlay").addEventListener("click", (e) => {
   if (e.target === e.currentTarget) closeHelp();
 });
 
-// ─── VIDEO ───────────────────────────────────────────────────────────────────
+// ─── VIDEO
 function loadVideo(path) {
   bgVideo.style.opacity = "0";
   setTimeout(() => {
@@ -58,7 +58,7 @@ function loadVideo(path) {
   }, 600);
 }
 
-// ─── AUDIO ───────────────────────────────────────────────────────────────────
+// ─── AUDIO
 function loadAudio(path) {
   audio.src = path;
   audio.load();
@@ -71,7 +71,7 @@ audio.addEventListener("timeupdate", () => {
   }
 });
 
-// ─── OBJECT HINTS ────────────────────────────────────────────────────────────
+// ─── OBJECT HINTS
 function updateHints() {
   const available = DAYS[currentDay - 1].scenes[currentScene].key;
 
@@ -89,17 +89,7 @@ function updateHints() {
   });
 }
 
-// ─── DAY NAV ─────────────────────────────────────────────────────────────────
-function updateDayNav() {
-  document.querySelectorAll(".day-btn").forEach((btn) => {
-    const d = parseInt(btn.dataset.day);
-    btn.classList.toggle("active", d === currentDay);
-    btn.classList.toggle("locked", !unlockedDays.has(d));
-    btn.classList.toggle("unlocked", unlockedDays.has(d));
-  });
-}
-
-// ─── PROGRESS BAR ────────────────────────────────────────────────────────────
+// ─── PROGRESS BAR
 function updateProgressBar() {
   const total = DAYS.reduce((a, d) => a + d.scenes.length, 0);
   const done =
@@ -108,7 +98,7 @@ function updateProgressBar() {
   progressBar.style.width = (done / (total - 1)) * 100 + "%";
 }
 
-// ─── RENDER ──────────────────────────────────────────────────────────────────
+// ─── RENDER
 function render(instant = false) {
   if (!DAYS.length) return;
 
@@ -196,7 +186,7 @@ function render(instant = false) {
   }, delay);
 }
 
-// ─── NAVIGATION ──────────────────────────────────────────────────────────────
+// ─── NAVIGATION
 function goToDay(day) {
   if (!unlockedDays.has(day)) return;
   currentDay = day;
@@ -221,7 +211,7 @@ function advanceScene() {
   render();
 }
 
-// ─── MAKEY MAKEY INPUT ───────────────────────────────────────────────────────
+// ─── MAKEY MAKEY INPUT
 // T = téléphone   C = café   D = bain   L = liste
 // Space = passer la scène   Escape = fermer l'overlay
 

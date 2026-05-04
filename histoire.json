@@ -162,7 +162,7 @@
       {
         "id": "1F-8",
         "type": "auto",
-        "video": "videos/jour1/salon.mp4",
+        "video": "videos/jour1/salon-soir.mp4",
         "audio": null,
         "texte": null,
         "next": "1G"
@@ -192,7 +192,7 @@
         "id": "1H",
         "type": "timed-auto",
         "timer": 5000,
-        "video": "videos/jour1/horloge.mp4",
+        "video": "videos/jour1/horloge2.mp4",
         "audio": "audio/jour1/1H.mp3",
         "texte": "Il est déjà tard, pour vous. Vous feriez mieux de vous allonger et de vous reposer.",
         "next": "FIN-JOUR-1"
@@ -204,6 +204,7 @@
       }
     ]
   },
+
   {
     "jour": 2,
     "scenes": [
