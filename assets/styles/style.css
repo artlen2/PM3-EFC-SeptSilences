@@ -22,6 +22,7 @@
 
 @theme {
   --font-sans: "Hawkes-LightRegular", sans-serif;
+  --font-game: "Hawkes-BoldNarrow", sans-serif;
   --font-title: "Hawkes-BoldWide", serif;
   --font-btn: "Hawkes-BoldNarrow", serif;
 

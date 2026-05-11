@@ -1,4 +1,4 @@
-// audio-manager.js (importé dans chaque page)
+// audio-manager.js
 const MUSIC = {
   "index.html": "./audio/MUSIQUE/Debut.wav",
   "about.html": "./audio/MUSIQUE/Debut.wav",
@@ -7,12 +7,12 @@ const MUSIC = {
 const page = location.pathname.split("/").pop() || "index.html";
 const src = MUSIC[page] ?? MUSIC["index.html"];
 
-let audio = window.__bgAudio;
+let audio = window.bgAudio;
 
 if (!audio) {
   audio = new Audio(src);
   audio.loop = true;
-  audio.volume = 0.5;
+  audio.volume = 0.2;
   window.__bgAudio = audio;
   audio.play().catch(() => {
     // Autoplay bloqué — attendre un clic utilisateur (obligatoire par Google )

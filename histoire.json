@@ -1,13 +1,13 @@
 [
   {
     "jour": 1,
-    "musique": "audio/MUSIQUE/Debut.wav",
+    "musique": "./audio/MUSIQUE/Debut.wav",
     "scenes": [
       {
         "id": "1A",
         "type": "auto",
-        "video": "videos/jour1/intro.mp4",
-        "audio": "audio/DIALOGUES/jour1/A1.mp3",
+        "video": "./videos/jour1/intro.mp4",
+        "audio": "./audio/DIALOGUES/jour1/A1.mp3",
         "texte": "Nous sommes le 3 octobre 2005. Les teintes automnales commencent déjà à éclairer votre petit appartement de fortune ; vos paupières semblent peser une tonne.",
         "next": "1B"
       },
@@ -108,7 +108,8 @@
         "id": "1F-1",
         "type": "auto",
         "video": "videos/jour1/telephone.mp4",
-        "audio": "audio/BRUITAGES/JOUR 1/j1-phone.mp3",
+        "audio": "audio/DIALOGUES/jour1/1F-1.mp3",
+        "bruitage": "audio/BRUITAGES/JOUR 1/j1-phone.mp3",
         "texte": "Le téléphone retentit.",
         "next": "1F-2"
       },
@@ -116,7 +117,7 @@
         "id": "1F-2",
         "type": "auto",
         "video": "videos/jour1/telephone.mp4",
-        "audio": "audio/DIALOGUES/jour1/1F-1.mp3",
+        "audio": "audio/DIALOGUES/jour1/1F-2.mp3",
         "texte": "Salut mamie, comment vas-tu ? Attends, je me déplace, ça capte mal près de la gare… Voilà, c'est mieux.",
         "next": "1F-3"
       },
@@ -124,7 +125,7 @@
         "id": "1F-3",
         "type": "auto",
         "video": "videos/jour1/telephone.mp4",
-        "audio": "audio/DIALOGUES/jour1/1F-2.mp3",
+        "audio": "audio/DIALOGUES/jour1/1F-3.mp3",
         "texte": "Je t'appelle juste pour te dire que je monte dans le train. Je viens de finir ma garde à l'usine, je suis épuisé mais je ne voulais pas rater le départ.",
         "next": "1F-4"
       },
@@ -132,7 +133,7 @@
         "id": "1F-4",
         "type": "auto",
         "video": "videos/jour1/telephone.mp4",
-        "audio": "audio/DIALOGUES/jour1/1F-3.mp3",
+        "audio": "audio/DIALOGUES/jour1/1F-4.mp3",
         "texte": "Ne t'embête pas à cuisiner des tonnes de trucs, d'accord ? Je sais comment tu es… mais bon, si jamais tu as fait tes fameux pierogis, je ne dirai pas non !",
         "next": "1F-5"
       },
@@ -140,7 +141,7 @@
         "id": "1F-5",
         "type": "auto",
         "video": "videos/jour1/telephone.mp4",
-        "audio": "audio/DIALOGUES/jour1/1F-4.mp3",
+        "audio": "audio/DIALOGUES/jour1/1F-5.mp3",
         "texte": "Je devrais arriver demain vers 17 heures, si le train n'a pas de retard.",
         "next": "1F-6"
       },
@@ -148,7 +149,7 @@
         "id": "1F-6",
         "type": "auto",
         "video": "videos/jour1/telephone.mp4",
-        "audio": "audio/DIALOGUES/jour1/1F-5.mp3",
+        "audio": "audio/DIALOGUES/jour1/1F-6.mp3",
         "texte": "Ah, et n'oublie pas de laisser la petite lampe de l'entrée allumée… Le couloir de l'immeuble est encore dans le noir complet, l'ampoule a grillé.",
         "next": "1F-7"
       },
@@ -156,16 +157,8 @@
         "id": "1F-7",
         "type": "auto",
         "video": "videos/jour1/telephone.mp4",
-        "audio": "audio/DIALOGUES/jour1/1F-6.mp3",
-        "texte": "Allez, repose-toi bien d'ici là, à demain !",
-        "next": "1F-8"
-      },
-      {
-        "id": "1F-8",
-        "type": "auto",
-        "video": "videos/jour1/telephone.mp4",
         "audio": "audio/DIALOGUES/jour1/1F-7.mp3",
-        "texte": null,
+        "texte": "Allez, repose-toi bien d'ici là, à demain !",
         "next": "1G"
       },
       {
@@ -184,6 +177,7 @@
       {
         "id": "1G-liste",
         "type": "auto",
+        "timer": 5000,
         "video": "videos/jour1/liste.mp4",
         "audio": "audio/DIALOGUES/jour1/1G-liste.mp3",
         "texte": "Déjeuner — se laver — faire les courses. Vous avez des courses à faire pour demain, mieux vaudrait y aller maintenant.",
@@ -194,7 +188,8 @@
         "type": "timed-auto",
         "timer": 5000,
         "video": "videos/jour1/horloge2.mp4",
-        "audio": "audio/BRUITAGES/JOUR 1/j1-horloge.mp3",
+        "audio": "audio/DIALOGUES/jour1/1H.mp3",
+        "bruitage": "audio/BRUITAGES/JOUR 1/j1-horloge.mp3",
         "texte": "Il est déjà tard, pour vous. Vous feriez mieux de vous allonger et de vous reposer.",
         "next": "FIN-JOUR-1"
       },
@@ -1078,7 +1073,7 @@
   },
   {
     "jour": 7,
-    "musique": "audio/MUSIQUE/Fin.mp3",
+    "musique": "audio/MUSIQUE/Track_j7.mp3",
     "scenes": [
       {
         "id": "7A",
@@ -1183,7 +1178,7 @@
         "type": "auto",
         "video": "videos/jour7/fauteuil.mp4",
         "audio": "audio/DIALOGUES/jour7/7D.mp3",
-        "texte": "Le petit-fils pose sa tête sur vos genoux et pleure en silence. Vous voudriez lever la main pour caresser ses cheveux, lui dire que ce n'est pas grave. Mais vos bras restent immobiles.",
+        "texte": "Votre petit-fils pose sa tête sur vos genoux et pleure en silence. Vous voudriez lever la main pour caresser ses cheveux, lui dire que ce n'est pas grave. Mais vos bras restent immobiles.",
         "next": "7E"
       },
       {

@@ -10,8 +10,12 @@ let unlockedJours = new Set([1]);
 let timerTimeout = null;
 let currentJourNum = 0;
 
+// Opacité overlay sombre par jour (index 0 = jour 1)
+const OVERLAY_VALUES = [0.3, 0.38, 0.46, 0.54, 0.62, 0.7, 0.8];
+
 //     DOM REFS
 let audio,
+  bruitage,
   musique,
   bgVideo,
   bgVideoSrc,
@@ -26,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!document.getElementById("stage")) return;
 
   audio = document.getElementById("narration");
+  bruitage = document.getElementById("bruitage");
   musique = document.getElementById("musique-fond");
   bgVideo = document.getElementById("bg-video");
   bgVideoSrc = document.getElementById("bg-video-src");
@@ -97,6 +102,7 @@ function stopAudio() {
 }
 
 //     MUSIQUE DE FOND
+// IMPORTANT DE AUTORISER LE PLAYBACK AUTOMATIQUE DANS NAVIGATEUR !!!!
 function loadMusique(jourNum) {
   if (!musique) return;
   if (jourNum === currentJourNum) return; // déjà en cours
@@ -104,6 +110,8 @@ function loadMusique(jourNum) {
   if (!jourData || !jourData.musique) return;
   musique.src = jourData.musique;
   musique.load();
+  musique.volume = 0.08; // ajuster le volume si c trop fort
+  musique.loop = true;
   musique.play().catch(() => {});
   currentJourNum = jourNum;
 }
@@ -225,12 +233,13 @@ function goToScene(id) {
     case "auto":
       hideHints();
       // Si pas d'audio, avancer après un court délai
-      if (!scene.audio) scheduleNext(scene.next);
+      // if (!scene.audio) scheduleNext(scene.next);
+      startTimer(scene.timer || 10000, () => goToScene(scene.next));
       break;
 
     case "timed-auto":
       hideHints();
-      startTimer(scene.timer || 5000, () => goToScene(scene.next));
+      startTimer(scene.timer || 10000, () => goToScene(scene.next));
       break;
 
     case "choice":
@@ -270,12 +279,12 @@ function renderScene(scene, jourNum) {
 
   setTimeout(() => {
     stage.innerHTML = `
-      <div class="scene-el blur-jour-${jourNum} absolute inset-0 flex flex-col items-center justify-center px-16 pb-24 opacity-0 pointer-events-none">
-        <div class="max-w-2xl w-full text-center flex flex-col items-center gap-6">
+      <div class="scene-el absolute inset-0 flex flex-col items-center justify-center px-16 pb-24 opacity-0 pointer-events-none">
+        <div class="max-w-6xl w-full text-center flex flex-col items-center gap-6">
           ${
             texteRendu
               ? `
-          <p class="scene-text font-sans text-2xl leading-relaxed text-cream
+          <p class="scene-text font-game text-4xl leading-relaxed text-cream
                      opacity-0 translate-y-2 transition-all duration-700 delay-300"
              style="text-shadow: 0 1px 10px rgba(0,0,0,0.8)">
             ${texteRendu}
@@ -304,11 +313,10 @@ function renderScene(scene, jourNum) {
 //     TRANSITION JOUR
 function showTransitionJour(nextJour) {
   hideHints();
-  clearTimer();
 
   stage.innerHTML = `
     <div class="absolute inset-0 flex items-center justify-center">
-      <p class="font-title text-cream/50 text-4xl italic">
+      <p class="font-title text-cream text-4xl">
         Jour ${nextJour}
       </p>
     </div>`;
@@ -316,7 +324,7 @@ function showTransitionJour(nextJour) {
   setTimeout(() => {
     const jourData = HISTOIRE.find((j) => j.jour === nextJour);
     if (jourData) goToScene(jourData.scenes[0].id);
-  }, 3000);
+  }, 8000);
 }
 
 //     FIN DE L'EXPÉRIENCE
@@ -340,9 +348,9 @@ function showFin() {
     </div>`;
 }
 
-//     CLAVIER / MAKEY MAKEY
+// CLAVIER / MAKEY MAKEY
 // T = téléphone   C = café   D = bain   L = liste
-// Espace = passer             Escape = fermer l'aide
+// Espace = passer, Escape = fermer l'aide
 
 function handleKeydown(e) {
   const k = e.key.toUpperCase();
