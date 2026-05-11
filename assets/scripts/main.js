@@ -1,238 +1,406 @@
-// ─── STATE
-let DAYS = [];
-let currentDay = 1;
-let currentScene = 0;
-let unlockedDays = new Set([1]);
+// =====================================================================
+// SEPT SILENCES — main.js
+// Moteur de l'expérience interactive — lit histoire.json
+// =====================================================================
 
-// ─── DOM REFS
-const audio = document.getElementById("narration");
-const bgVideo = document.getElementById("bg-video");
-const bgVideoSrc = document.getElementById("bg-video-src");
-const bgOverlay = document.getElementById("bg-overlay");
-const progressFill = document.getElementById("audio-progress-fill");
-const stage = document.getElementById("stage");
-const objectHints = document.getElementById("object-hints");
-const audioBar = document.getElementById("audio-bar");
-const skipHint = document.getElementById("skip-hint");
-const progressBar = document.getElementById("progress-bar");
+//     STATE
+let HISTOIRE = [];
+let currentScene = null;
+let unlockedJours = new Set([1]);
+let timerTimeout = null;
+let currentJourNum = 0;
 
-// Overlay opacity per day (index 0 = day 1)
-const OVERLAY_VALUES = [0.35, 0.42, 0.48, 0.55, 0.62, 0.7, 0.78];
+//     DOM REFS
+let audio,
+  musique,
+  bgVideo,
+  bgVideoSrc,
+  bgOverlay,
+  stage,
+  timerBar,
+  timerWrap,
+  objectHints;
 
-// ─── INIT — load JSON then start
-fetch("histoire.json")
-  .then((r) => r.json())
-  .then((data) => {
-    DAYS = data;
-    render(true);
-  })
-  .catch((err) => {
-    console.error("Impossible de charger days.json :", err);
+//     INIT
+document.addEventListener("DOMContentLoaded", () => {
+  if (!document.getElementById("stage")) return;
+
+  audio = document.getElementById("narration");
+  musique = document.getElementById("musique-fond");
+  bgVideo = document.getElementById("bg-video");
+  bgVideoSrc = document.getElementById("bg-video-src");
+  bgOverlay = document.getElementById("bg-overlay");
+  stage = document.getElementById("stage");
+  timerBar = document.getElementById("timer-bar");
+  timerWrap = document.getElementById("timer-wrap");
+  objectHints = document.getElementById("object-hints");
+
+  // Scènes auto sans audio : avancer quand l'audio se termine
+  audio.addEventListener("ended", () => {
+    if (!currentScene) return;
+    if (currentScene.type === "auto") scheduleNext(currentScene.next);
   });
 
-// ─── HELP OVERLAY
-function openHelp() {
-  const overlay = document.getElementById("help-overlay");
-  overlay.classList.remove("opacity-0", "pointer-events-none");
-  overlay.classList.add("opacity-100");
-}
+  document.addEventListener("keydown", handleKeydown);
 
-function closeHelp() {
-  const overlay = document.getElementById("help-overlay");
-  overlay.classList.add("opacity-0", "pointer-events-none");
-  overlay.classList.remove("opacity-100");
-}
+  document.getElementById("help-overlay")?.addEventListener("click", (e) => {
+    if (e.target === e.currentTarget) closeHelp();
+  });
 
-document.getElementById("help-overlay").addEventListener("click", (e) => {
-  if (e.target === e.currentTarget) closeHelp();
+  fetch("histoire.json")
+    .then((r) => r.json())
+    .then((data) => {
+      HISTOIRE = data;
+      goToScene("1A");
+    })
+    .catch((err) =>
+      console.error("Impossible de charger histoire.json :", err),
+    );
 });
 
-// ─── VIDEO
+//     RECHERCHE
+function findScene(id) {
+  for (const jour of HISTOIRE) {
+    for (const scene of jour.scenes) {
+      if (scene.id === id) return { scene, jourNum: jour.jour };
+    }
+  }
+  return null;
+}
+
+//     VIDEO
 function loadVideo(path) {
+  if (!path) return;
   bgVideo.style.opacity = "0";
   setTimeout(() => {
     bgVideoSrc.src = path;
     bgVideo.load();
     bgVideo.play().catch(() => {});
     bgVideo.style.opacity = "1";
-  }, 600);
+  }, 500);
 }
 
-// ─── AUDIO
+//     AUDIO
 function loadAudio(path) {
+  if (!path) {
+    audio.src = "";
+    return;
+  }
   audio.src = path;
   audio.load();
   audio.play().catch(() => {});
 }
 
-audio.addEventListener("timeupdate", () => {
-  if (audio.duration) {
-    progressFill.style.width = (audio.currentTime / audio.duration) * 100 + "%";
+function stopAudio() {
+  audio.pause();
+  audio.currentTime = 0;
+}
+
+//     MUSIQUE DE FOND
+function loadMusique(jourNum) {
+  if (!musique) return;
+  if (jourNum === currentJourNum) return; // déjà en cours
+  const jourData = HISTOIRE.find((j) => j.jour === jourNum);
+  if (!jourData || !jourData.musique) return;
+  musique.src = jourData.musique;
+  musique.load();
+  musique.play().catch(() => {});
+  currentJourNum = jourNum;
+}
+
+//     TIMER
+function startTimer(duration, onTimeout) {
+  clearTimer();
+  timerWrap.style.opacity = "1";
+  timerBar.style.transition = "none";
+  timerBar.style.width = "100%";
+  timerBar.getBoundingClientRect(); // force reflow
+  timerBar.style.transition = `width ${duration}ms linear`;
+  timerBar.style.width = "0%";
+
+  timerTimeout = setTimeout(() => {
+    clearTimer();
+    onTimeout();
+  }, duration);
+}
+
+function clearTimer() {
+  if (timerTimeout) {
+    clearTimeout(timerTimeout);
+    timerTimeout = null;
   }
-});
+  if (!timerBar) return;
+  timerBar.style.transition = "none";
+  timerBar.style.width = "0%";
+  timerWrap.style.opacity = "0";
+}
 
-// ─── OBJECT HINTS
-function updateHints() {
-  const available = DAYS[currentDay - 1].scenes[currentScene].key;
+//     HINTS
+const ALL_KEYS = ["T", "C", "D", "L"];
 
+function showHints(availableKeys) {
   objectHints.style.opacity = "1";
-  audioBar.style.opacity = "1";
-  skipHint.style.opacity = "1";
-
-  ["T", "C", "D", "L"].forEach((k) => {
+  ALL_KEYS.forEach((k) => {
     const el = document.getElementById("hint-" + k);
-    if (k === available) {
+    if (!el) return;
+    if (availableKeys.includes(k)) {
       el.classList.add("hint-available");
+      el.style.opacity = "1";
     } else {
       el.classList.remove("hint-available");
+      el.style.opacity = "0.15";
     }
   });
 }
 
-// ─── PROGRESS BAR
-function updateProgressBar() {
-  const total = DAYS.reduce((a, d) => a + d.scenes.length, 0);
-  const done =
-    DAYS.slice(0, currentDay - 1).reduce((a, d) => a + d.scenes.length, 0) +
-    currentScene;
-  progressBar.style.width = (done / (total - 1)) * 100 + "%";
+function hideHints() {
+  if (objectHints) objectHints.style.opacity = "0";
+  ALL_KEYS.forEach((k) => {
+    const el = document.getElementById("hint-" + k);
+    if (!el) return;
+    el.classList.remove("hint-available");
+    el.style.opacity = "0.15";
+  });
 }
 
-// ─── RENDER
-function render(instant = false) {
-  if (!DAYS.length) return;
+//     JOUR NAV
+function updateJourNav(jourNum) {
+  document.querySelectorAll(".jour-btn").forEach((btn) => {
+    const j = parseInt(btn.dataset.jour);
+    btn.classList.toggle("active", j === jourNum);
+    btn.classList.toggle("locked", !unlockedJours.has(j));
+    btn.classList.toggle("unlocked", unlockedJours.has(j));
+  });
+}
 
-  const s = DAYS[currentDay - 1].scenes[currentScene];
+function goToJour(jour) {
+  if (!unlockedJours.has(jour)) return;
+  const jourData = HISTOIRE.find((j) => j.jour === jour);
+  if (jourData) goToScene(jourData.scenes[0].id);
+}
+
+//     TEXTE AVEC MOTS FLOUS
+function renderText(texte) {
+  if (!texte) return "";
+  let result = texte;
+  return result;
+}
+
+//     AVANCER
+function scheduleNext(nextId) {
+  if (!nextId) return;
+  setTimeout(() => goToScene(nextId), 1200);
+}
+
+//     GO TO SCENE
+function goToScene(id) {
+  if (!id) return;
+  if (id === "FIN") {
+    showFin();
+    return;
+  }
+
+  const found = findScene(id);
+  if (!found) {
+    console.warn("Scène introuvable :", id);
+    return;
+  }
+
+  const { scene, jourNum } = found;
+  currentScene = scene;
+
+  unlockedJours.add(jourNum);
+  clearTimer();
+  stopAudio();
+
+  if (bgOverlay) bgOverlay.style.opacity = OVERLAY_VALUES[jourNum - 1];
+
+  updateJourNav(jourNum);
+  loadMusique(jourNum);
+  loadVideo(scene.video);
+  loadAudio(scene.audio);
+  renderScene(scene, jourNum);
+
+  switch (scene.type) {
+    case "auto":
+      hideHints();
+      // Si pas d'audio, avancer après un court délai
+      if (!scene.audio) scheduleNext(scene.next);
+      break;
+
+    case "timed-auto":
+      hideHints();
+      startTimer(scene.timer || 5000, () => goToScene(scene.next));
+      break;
+
+    case "choice":
+      showHints([scene.key]);
+      startTimer(scene.timer || 7000, () => {
+        hideHints();
+        goToScene(scene.next.timeout);
+      });
+      break;
+
+    case "free":
+      showHints(scene.choix.map((c) => c.key));
+      // Pas de timer — choix libre
+      break;
+
+    case "fin-jour":
+      hideHints();
+      showTransitionJour(scene.nextJour);
+      break;
+
+    case "fin-experience":
+      showFin();
+      break;
+  }
+}
+
+//     RENDER SCENE
+function renderScene(scene, jourNum) {
   const existing = stage.querySelector(".scene-el");
-
-  // Fade out existing scene
-  if (existing && !instant) {
+  if (existing) {
     existing.style.opacity = "0";
     existing.style.pointerEvents = "none";
   }
 
-  const delay = existing && !instant ? 700 : 0;
+  const texteRendu = renderText(scene.texte, scene.blurred);
+  const delay = existing ? 500 : 0;
 
   setTimeout(() => {
     stage.innerHTML = `
-      <div class="scene-el blur-day-${currentDay} absolute inset-0 flex flex-col items-center justify-center px-16 pb-24 opacity-0 pointer-events-none">
+      <div class="scene-el blur-jour-${jourNum} absolute inset-0 flex flex-col items-center justify-center px-16 pb-24 opacity-0 pointer-events-none">
         <div class="max-w-2xl w-full text-center flex flex-col items-center gap-6">
-
-          <p class="scene-label font-sans text-[10px] tracking-[0.3em] uppercase text-dust
-                     opacity-0 translate-y-1.5 transition-all duration-500 delay-300">
-            ${s.label}
-          </p>
-
-          <h2 class="scene-title font-title text-5xl leading-tight text-cream
-                      opacity-0 translate-y-2 transition-all duration-700 delay-[450ms]"
-              style="text-shadow: 0 2px 20px rgba(0,0,0,0.6)">
-            ${s.title}
-          </h2>
-
-          <p class="scene-text font-sans text-lg leading-relaxed text-faded
-                     opacity-0 translate-y-2 transition-all duration-700 delay-[600ms]"
-             style="text-shadow: 0 1px 8px rgba(0,0,0,0.7)">
-            ${s.text}
-          </p>
-
           ${
-            s.quote
+            texteRendu
               ? `
-          <blockquote class="scene-quote font-title text-xl italic leading-relaxed text-cream/80
-                             border-l border-cream/25 pl-6 text-left
-                             opacity-0 translate-y-2 transition-all duration-700 delay-[550ms]"
-                      style="text-shadow: 0 1px 8px rgba(0,0,0,0.6)">
-            ${s.quote}
-          </blockquote>`
+          <p class="scene-text font-sans text-2xl leading-relaxed text-cream
+                     opacity-0 translate-y-2 transition-all duration-700 delay-300"
+             style="text-shadow: 0 1px 10px rgba(0,0,0,0.8)">
+            ${texteRendu}
+          </p>`
               : ""
           }
-
         </div>
       </div>`;
 
-    // Update environment
-    bgOverlay.style.opacity = OVERLAY_VALUES[currentDay - 1];
-    loadVideo(s.video);
-    loadAudio(s.audio);
-    progressFill.style.width = "0%";
+    const el = stage.querySelector(".scene-el");
+    if (!el) return;
 
-    updateDayNav();
-    updateProgressBar();
-    updateHints();
-
-    // Fade in scene and animate children
     requestAnimationFrame(() => {
-      const el = stage.querySelector(".scene-el");
-      if (!el) return;
-
       requestAnimationFrame(() => {
         el.style.opacity = "1";
         el.style.pointerEvents = "auto";
-
-        el.querySelectorAll(
-          ".scene-label, .scene-title, .scene-text, .scene-quote",
-        ).forEach((child) => {
-          requestAnimationFrame(() => {
-            child.classList.remove(
-              "opacity-0",
-              "translate-y-2",
-              "translate-y-1.5",
-            );
-            child.classList.add("opacity-100", "translate-y-0");
-          });
+        el.querySelectorAll(".scene-text").forEach((c) => {
+          c.classList.remove("opacity-0", "translate-y-2");
+          c.classList.add("opacity-100", "translate-y-0");
         });
       });
     });
   }, delay);
 }
 
-// ─── NAVIGATION
-function goToDay(day) {
-  if (!unlockedDays.has(day)) return;
-  currentDay = day;
-  currentScene = 0;
-  render();
+//     TRANSITION JOUR
+function showTransitionJour(nextJour) {
+  hideHints();
+  clearTimer();
+
+  stage.innerHTML = `
+    <div class="absolute inset-0 flex items-center justify-center">
+      <p class="font-title text-cream/50 text-4xl italic">
+        Jour ${nextJour}
+      </p>
+    </div>`;
+
+  setTimeout(() => {
+    const jourData = HISTOIRE.find((j) => j.jour === nextJour);
+    if (jourData) goToScene(jourData.scenes[0].id);
+  }, 3000);
 }
 
-function advanceScene() {
-  if (!DAYS.length) return;
+//     FIN DE L'EXPÉRIENCE
+function showFin() {
+  stopAudio();
+  clearTimer();
+  hideHints();
+  if (bgOverlay) bgOverlay.style.opacity = "0.92";
 
-  const dayData = DAYS[currentDay - 1];
-
-  if (currentScene < dayData.scenes.length - 1) {
-    currentScene++;
-  } else if (currentDay < DAYS.length) {
-    currentDay++;
-    currentScene = 0;
-    unlockedDays.add(currentDay);
-  }
-  // Last scene of last day — do nothing
-
-  render();
+  stage.innerHTML = `
+    <div class="absolute inset-0 flex flex-col items-center justify-center gap-10 px-16">
+      <p class="font-title text-cream/70 text-3xl italic text-center max-w-lg leading-relaxed"
+         style="text-shadow: 0 2px 20px rgba(0,0,0,0.5)">
+        N'oublie pas... la petite lampe... de l'entrée...
+      </p>
+      <a href="index.html"
+         class="py-1.5 rounded-4xl text-center bg-no-repeat bg-cover bg-center transition-all duration-200 hover:brightness-125 hover:scale-105 hover:shadow-xl px-8 text-cream text-2xl font-btn"
+         style="background-image: url('images/boutoncropped.png')">
+        Retourner à l'accueil
+      </a>
+    </div>`;
 }
 
-// ─── MAKEY MAKEY INPUT
+//     CLAVIER / MAKEY MAKEY
 // T = téléphone   C = café   D = bain   L = liste
-// Space = passer la scène   Escape = fermer l'overlay
+// Espace = passer             Escape = fermer l'aide
 
-document.addEventListener("keydown", (e) => {
+function handleKeydown(e) {
   const k = e.key.toUpperCase();
-
-  if (e.key === " ") {
-    e.preventDefault();
-    audio.pause();
-    advanceScene();
-    return;
-  }
 
   if (e.key === "Escape") {
     closeHelp();
     return;
   }
 
-  if (["T", "C", "D", "L"].includes(k)) {
-    const expected = DAYS[currentDay - 1]?.scenes[currentScene]?.key;
-    if (k === expected) advanceScene();
-    // Mauvais objet = rien
+  if (e.key === " ") {
+    e.preventDefault();
+    handleSkip();
+    return;
   }
-});
+
+  if (!ALL_KEYS.includes(k) || !currentScene) return;
+
+  if (currentScene.type === "choice") {
+    if (k === currentScene.key) {
+      clearTimer();
+      hideHints();
+      goToScene(currentScene.next.success);
+    }
+    // Mauvais objet = rien
+  } else if (currentScene.type === "free") {
+    const choix = currentScene.choix.find((c) => c.key === k);
+    if (choix) {
+      hideHints();
+      goToScene(choix.next);
+    }
+  }
+}
+
+function handleSkip() {
+  if (!currentScene) return;
+  stopAudio();
+  clearTimer();
+  hideHints();
+
+  if (currentScene.type === "auto" || currentScene.type === "timed-auto") {
+    if (currentScene.next) goToScene(currentScene.next);
+  } else if (currentScene.type === "choice") {
+    goToScene(currentScene.next.timeout);
+  }
+  // free = pas de skip
+}
+
+//     OVERLAY AIDE
+function openHelp() {
+  const o = document.getElementById("help-overlay");
+  if (!o) return;
+  o.classList.remove("opacity-0", "pointer-events-none");
+  o.classList.add("opacity-100");
+}
+
+function closeHelp() {
+  const o = document.getElementById("help-overlay");
+  if (!o) return;
+  o.classList.add("opacity-0", "pointer-events-none");
+  o.classList.remove("opacity-100");
+}

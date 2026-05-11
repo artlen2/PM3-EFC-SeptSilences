@@ -84,3 +84,33 @@
 }
 
 /* GAME */
+.hint-class {
+  @apply w-12 h-12 rounded-full border border-cream/20 bg-white/5 flex items-center justify-center font-sans text-xs tracking-widest transition-all duration-400;
+}
+
+.hint-span {
+  @apply font-sans text-sm tracking-tight uppercase text-cream/40;
+}
+
+.hint {
+  @apply flex flex-col items-center gap-2 transition-all duration-400;
+}
+
+/* Jour nav — pseudo-élément et valeurs non supportées */
+.jour-btn {
+  @apply bg-transparent border-none cursor-pointer relative px-3.25 py-2
+         font-btn text-[10px] tracking-[0.18em] uppercase
+         text-[rgba(201,193,181,0.18)] transition-colors duration-400;
+}
+.jour-btn.active {
+  @apply text-[rgba(201,193,181,0.9)];
+}
+.jour-btn.active::after {
+  width: 14px;
+}
+.jour-btn.unlocked:not(.active) {
+  @apply text-[rgba(201,193,181,0.45)];
+}
+.jour-btn.locked {
+  @apply opacity-10 cursor-not-allowed pointer-events-none;
+}
