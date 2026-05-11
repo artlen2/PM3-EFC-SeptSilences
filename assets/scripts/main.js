@@ -21,8 +21,6 @@ let audio,
   bgVideoSrc,
   bgOverlay,
   stage,
-  timerBar,
-  timerWrap,
   objectHints;
 
 //     INIT
@@ -89,10 +87,12 @@ function loadVideo(path) {
 function loadAudio(path) {
   if (!path) {
     audio.src = "";
+    audio.volume = 1;
     return;
   }
   audio.src = path;
   audio.load();
+  audio.volume = 1;
   audio.play().catch(() => {});
 }
 
@@ -110,26 +110,10 @@ function loadMusique(jourNum) {
   if (!jourData || !jourData.musique) return;
   musique.src = jourData.musique;
   musique.load();
-  musique.volume = 0.08; // ajuster le volume si c trop fort
+  musique.volume = 0.1; // ajuster le volume si c trop fort
   musique.loop = true;
   musique.play().catch(() => {});
   currentJourNum = jourNum;
-}
-
-//     TIMER
-function startTimer(duration, onTimeout) {
-  clearTimer();
-  timerWrap.style.opacity = "1";
-  timerBar.style.transition = "none";
-  timerBar.style.width = "100%";
-  timerBar.getBoundingClientRect(); // force reflow
-  timerBar.style.transition = `width ${duration}ms linear`;
-  timerBar.style.width = "0%";
-
-  timerTimeout = setTimeout(() => {
-    clearTimer();
-    onTimeout();
-  }, duration);
 }
 
 function clearTimer() {
@@ -234,20 +218,21 @@ function goToScene(id) {
       hideHints();
       // Si pas d'audio, avancer après un court délai
       // if (!scene.audio) scheduleNext(scene.next);
-      startTimer(scene.timer || 10000, () => goToScene(scene.next));
+      (scene.timer || 10000, () => goToScene(scene.next));
       break;
 
     case "timed-auto":
       hideHints();
-      startTimer(scene.timer || 10000, () => goToScene(scene.next));
+      (scene.timer || 10000, () => goToScene(scene.next));
       break;
 
     case "choice":
       showHints([scene.key]);
-      startTimer(scene.timer || 7000, () => {
-        hideHints();
-        goToScene(scene.next.timeout);
-      });
+      (scene.timer || 7000,
+        () => {
+          hideHints();
+          goToScene(scene.next.timeout);
+        });
       break;
 
     case "free":
