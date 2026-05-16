@@ -41,7 +41,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Scènes auto sans audio : avancer quand l'audio se termine
   audio.addEventListener("ended", () => {
     if (!currentScene) return;
-    if (currentScene.type === "auto") scheduleNext(currentScene.next);
+    if (currentScene.type === "auto") {
+      const delai = currentScene.delaiApresAudio ?? 1500; // ms de pause après la fin du son
+      timerTimeout = setTimeout(() => goToScene(currentScene.next), delai);
+    }
   });
 
   document.addEventListener("keydown", handleKeydown);
@@ -213,20 +216,33 @@ function goToScene(id) {
   loadAudio(scene.audio);
   renderScene(scene, jourNum);
 
+  const skipBtn = document.getElementById("skip-hint");
+
   switch (scene.type) {
     case "auto":
+      if (skipBtn) skipBtn.style.visibility = "visible";
       hideHints();
-      // Si pas d'audio, avancer après un court délai
-      // if (!scene.audio) scheduleNext(scene.next);
-      (scene.timer || 10000, () => goToScene(scene.next));
+      // Si pas d'audio, setTimeout comme fallback
+      if (!scene.audio) {
+        timerTimeout = setTimeout(
+          () => goToScene(scene.next),
+          scene.timer || 4000,
+        );
+      }
+      // Sinon, c'est audio.addEventListener("ended") qui déclenche scheduleNext
       break;
 
     case "timed-auto":
+      if (skipBtn) skipBtn.style.visibility = "visible";
       hideHints();
-      (scene.timer || 10000, () => goToScene(scene.next));
+      timerTimeout = setTimeout(
+        () => goToScene(scene.next),
+        scene.timer || 10000,
+      );
       break;
 
     case "choice":
+      if (skipBtn) skipBtn.style.visibility = "visible";
       showHints([scene.key]);
       (scene.timer || 7000,
         () => {
@@ -236,16 +252,19 @@ function goToScene(id) {
       break;
 
     case "free":
+      if (skipBtn) skipBtn.style.visibility = "hidden";
       showHints(scene.choix.map((c) => c.key));
       // Pas de timer — choix libre
       break;
 
     case "fin-jour":
+      if (skipBtn) skipBtn.style.visibility = "hidden";
       hideHints();
       showTransitionJour(scene.nextJour);
       break;
 
     case "fin-experience":
+      if (skipBtn) skipBtn.style.visibility = "hidden";
       showFin();
       break;
   }
@@ -371,6 +390,8 @@ function handleKeydown(e) {
 
 function handleSkip() {
   if (!currentScene) return;
+  if (currentScene.type === "free") return; // guard explicite, rien ne se passe
+
   stopAudio();
   clearTimer();
   hideHints();
@@ -380,7 +401,6 @@ function handleSkip() {
   } else if (currentScene.type === "choice") {
     goToScene(currentScene.next.timeout);
   }
-  // free = pas de skip
 }
 
 //     OVERLAY AIDE
