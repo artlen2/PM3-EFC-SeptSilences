@@ -146,7 +146,7 @@
         "type": "auto",
         "video": "videos/jour1/telephone.mp4",
         "audio": "audio/DIALOGUES/jour1/1F-5.mp3",
-        "texte": "Je devrais arriver demain vers 17 heures, si le train n'a pas de retard.",
+        "texte": "Bon, je devrais arriver demain vers... 17 heures, si le train n'a pas de retard.",
         "next": "1F-6"
       },
       {
@@ -169,7 +169,7 @@
         "id": "1G",
         "type": "choice",
         "key": "L",
-        "timer": 7000,
+        "timer": 5000,
         "video": "videos/jour1/liste.mp4",
         "audio": "audio/BRUITAGES/JOUR 1/j1-liste.mp3",
         "texte": "Regarder la liste de tâches à faire ?",
@@ -206,90 +206,73 @@
   },
   {
     "jour": 2,
-    "musique": "audio/MUSIQUE/Track_j2.mp3",
+    "musique": "./audio/MUSIQUE/Track_j2.mp3",
     "scenes": [
       {
         "id": "2A",
         "type": "auto",
-        "video": "videos/jour2/intro.mp4",
+        "video": "videos/jour2/horloge3.mp4",
         "audio": "audio/DIALOGUES/jour2/2A.mp3",
         "texte": "Votre calendrier affiche le 2 décembre 2005, les jours sont déjà froids et longs, l'hiver est déjà bien installé.",
         "next": "2B"
       },
       {
         "id": "2B",
-        "type": "choice",
-        "key": "L",
-        "timer": 6000,
+        "type": "free",
         "video": "videos/jour2/piece.mp4",
         "audio": null,
-        "texte": "Regarder la liste de tâches à faire ?",
-        "next": {
-          "success": "2B-liste",
-          "timeout": "2B-errer"
-        }
+        "texte": "Que faites-vous ?",
+        "choix": [
+          { "key": "L", "next": "2C-liste" },
+          { "key": "C", "next": "2C-cafe" },
+          { "key": "T", "next": "2C-errer" },
+          { "key": "D", "next": "2C-errer" }
+        ]
       },
       {
-        "id": "2B-liste",
+        "id": "2C-liste",
         "type": "auto",
         "video": "videos/jour2/piece.mp4",
-        "audio": "audio/DIALOGUES/jour2/2B-liste.mp3",
-        "texte": "Il semblerait que vous ayez oublié de la rédiger hier soir… Ce sont des choses qui arrivent après tout.",
-        "next": "2C"
+        "audio": "audio/DIALOGUES/jour2/2C-liste.mp3",
+        "texte": "Il semblerait que vous ayez oublié de la rédiger hier soir. Ce sont des choses qui arrivent après tout.",
+        "next": "2E"
       },
+
       {
-        "id": "2B-errer",
+        "id": "2C-errer",
         "type": "auto",
         "video": "videos/jour2/piece.mp4",
         "audio": null,
         "texte": "Vous errez dans la maison, cherchant quelque chose sans savoir quoi.",
-        "next": "2H-horloge"
+        "next": "2CA-errer"
       },
+
       {
-        "id": "2C",
-        "type": "choice",
-        "key": "C",
-        "timer": 7000,
-        "video": "videos/jour2/piece.mp4",
-        "audio": null,
-        "texte": "Commencer par se réveiller avec un café ?",
-        "next": {
-          "success": "2C-cafe",
-          "timeout": "2H-horloge"
-        }
+        "id": "2CA-errer",
+        "type": "auto",
+        "video": "videos/jour2/horloge3.mp4",
+        "audio": "audio/DIALOGUES/jour2/2CA-errer.mp3",
+        "bruitage": "audio/BRUITAGES/JOUR 1/j1-horloge.mp3",
+        "texte": "Vous regardez l’horloge et les aiguilles qui tournent finissent par vous faire vous assoupir…",
+        "next": "2E"
       },
       {
         "id": "2C-cafe",
         "type": "auto",
         "video": "videos/jour2/cafe.mp4",
         "audio": "audio/DIALOGUES/jour2/2C-cafe.mp3",
+        "bruitage": "audio/BRUITAGES/JOUR 1/j1-cafe.mp3",
         "texte": "Vous ne semblez rien avoir de prévu aujourd'hui, alors commencez par vous réveiller avec un café. Une pile de vaisselle vous attend ensuite.",
-        "next": "2D"
-      },
-      {
-        "id": "2D",
-        "type": "timed-auto",
-        "timer": 6000,
-        "video": "videos/jour2/horloge1.mp4",
-        "audio": "audio/DIALOGUES/jour2/2D.mp3",
-        "texte": "Vous regardez l'horloge et les aiguilles qui tournent finissent par vous faire vous assoupir…",
         "next": "2E"
       },
-      {
-        "id": "2H-horloge",
-        "type": "timed-auto",
-        "timer": 5000,
-        "video": "videos/jour2/horloge2.mp4",
-        "audio": "audio/DIALOGUES/jour2/2H.mp3",
-        "texte": "Vous regardez l'horloge et les aiguilles qui tournent finissent par vous faire vous assoupir…",
-        "next": "2E"
-      },
+
       {
         "id": "2E",
         "type": "auto",
         "video": "videos/jour2/porte.mp4",
         "audio": "audio/DIALOGUES/jour2/2E.mp3",
-        "texte": "Vous entendez des bruits devant votre porte. Puis, ça tambourine. Votre famille est là, heureuse de vous voir.",
+        "bruitage": "audio/BRUITAGES/JOUR 2/j2-porte.mp3",
+        "texte": "Vous entendez des bruits venant de l'extérieur. Puis, on commence à tambouriner à la porte. Votre famille est là, heureuse de vous voir.",
         "next": "2E-dialogue-1"
       },
       {
@@ -303,7 +286,7 @@
       {
         "id": "2E-dialogue-2",
         "type": "auto",
-        "video": "videos/jour2/pieceSoir.mp4",
+        "video": "videos/jour2/piece2.mp4",
         "audio": "audio/DIALOGUES/jour2/2E-d2.mp3",
         "texte": "Désolée, je ne pensais pas que vous viendriez ! Vous auriez pu me prévenir quand même, je n'ai pas fait de courses.",
         "next": "2E-dialogue-3"
@@ -311,7 +294,7 @@
       {
         "id": "2E-dialogue-3",
         "type": "auto",
-        "video": "videos/jour2/pieceSoir.mp4",
+        "video": "videos/jour2/piece2.mp4",
         "audio": "audio/DIALOGUES/jour2/2E-d3.mp3",
         "texte": "Mais cela fait des semaines que je t'ai dit que nous viendrons. Ne me dis pas que tu as oublié !",
         "next": "2E-dialogue-4"
@@ -319,7 +302,7 @@
       {
         "id": "2E-dialogue-4",
         "type": "auto",
-        "video": "videos/jour2/pieceSoir.mp4",
+        "video": "videos/jour2/piece2.mp4",
         "audio": "audio/DIALOGUES/jour2/2E-d4.mp3",
         "texte": "Je ne peux pas penser à tout à mon âge.",
         "next": "2E-dialogue-5"
@@ -337,13 +320,13 @@
         "type": "auto",
         "video": "videos/jour2/pieceSoir.mp4",
         "audio": "audio/DIALOGUES/jour2/2F.mp3",
-        "texte": "La famille entre et vous passez la soirée à vous demander comment vous avez oublié cette visite. Par chance, vous aviez un repas dans le frigo. Peut-être le repas de ce midi que vous avez oublié de prendre ?",
+        "texte": "La famille entre et vous passez la soirée à vous demander comment vous avez oublié cette visite. Par chance, vous aviez un repas dans le frigo pour votre famille. Peut-être le repas de ce midi que vous avez oublié de prendre ?",
         "next": "2G"
       },
       {
         "id": "2G",
         "type": "auto",
-        "video": "videos/jour2/pieceSoir.mp4",
+        "video": "videos/jour2/lit.mp4",
         "audio": "audio/DIALOGUES/jour2/2G.mp3",
         "texte": "Quand votre famille part, vous décidez de partir vous coucher.",
         "next": "FIN-JOUR-2"
@@ -362,56 +345,48 @@
       {
         "id": "3A",
         "type": "auto",
-        "video": "videos/jour3/intro.mp4",
+        "video": "videos/jour3/lit.mp4",
         "audio": "audio/DIALOGUES/jour3/3A.mp3",
         "texte": "Nous sommes en novembre 2006. Le jour vient de se lever, aujourd'hui vous semble flou. Vous feriez mieux de vous ménager.",
-        "next": "3A-monologue"
-      },
-      {
-        "id": "3A-monologue",
-        "type": "auto",
-        "video": "videos/jour3/intro.mp4",
-        "audio": "audio/DIALOGUES/jour3/sourcil.mp3",
-        "texte": "Ah, il faudrait que je me fasse un… un… dans la machine. Ou peut-être… aller…",
         "next": "3B"
       },
       {
         "id": "3B",
-        "type": "choice",
-        "key": "C",
-        "timer": 7000,
-        "video": "videos/jour3/salon.mp4",
-        "audio": null,
-        "texte": "Faire du café ?",
-        "next": {
-          "success": "3B-cafe",
-          "timeout": "3C-errer"
-        }
+        "type": "auto",
+        "video": "videos/jour3/lit.mp4",
+        "audio": "audio/DIALOGUES/jour3/3B.mp3",
+        "texte": "Ah, il faudrait que je me fasse un… un… dans la machine. Ou peut-être… aller…",
+        "next": "3C"
       },
       {
-        "id": "3B-cafe",
+        "id": "3C",
+        "type": "free",
+        "video": "videos/jour3/piece.mp4",
+        "audio": null,
+        "texte": "Que faites-vous ?",
+        "choix": [
+          { "key": "C", "next": "3C-cafe" },
+          { "key": "L", "next": "3C-errer" },
+          { "key": "T", "next": "3C-errer" },
+          { "key": "D", "next": "3C-errer" }
+        ]
+      },
+      {
+        "id": "3C-cafe",
         "type": "auto",
         "video": "videos/jour3/cafe.mp4",
-        "audio": "audio/DIALOGUES/jour3/3B.mp3",
+        "audio": "audio/DIALOGUES/jour3/3C-cafe.mp3",
         "texte": "Votre café a un goût étrange, peut-être que vous avez oublié quelque chose.",
-        "next": "3C-carnet"
+        "next": "3C-errer"
       },
       {
         "id": "3C-errer",
-        "type": "auto",
-        "video": "videos/jour3/salon.mp4",
-        "audio": null,
-        "texte": "Vous errez dans la maison.",
-        "next": "3C-carnet"
-      },
-      {
-        "id": "3C-carnet",
         "type": "choice",
         "key": "L",
-        "timer": 6000,
-        "video": "videos/jour3/salon.mp4",
+        "timer": 8000,
+        "video": "videos/jour3/piece.mp4",
         "audio": null,
-        "texte": "Trouver son carnet ?",
+        "texte": "Vous errez dans la maison. Où se trouve votre carnet ?",
         "next": {
           "success": "3C-trouve",
           "timeout": "3D"

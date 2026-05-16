@@ -6,7 +6,6 @@
 //     STATE
 let HISTOIRE = [];
 let currentScene = null;
-let unlockedJours = new Set([1]);
 let timerTimeout = null;
 let currentJourNum = 0;
 let enTransition = false;
@@ -40,8 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Scènes auto sans audio : avancer quand l'audio se termine
   audio.addEventListener("ended", () => {
     if (!currentScene) return;
+    if (enTransition) return;
     if (currentScene.type === "auto") {
-      const delai = currentScene.delaiApresAudio ?? 1500; // ms de pause après la fin du son
+      const delai = currentScene.delaiApresAudio ?? 1500;
       timerTimeout = setTimeout(() => goToScene(currentScene.next), delai);
     }
   });
@@ -103,10 +103,51 @@ function fadeOutAudio(el, duree = 600) {
   }, 30);
 }
 
+// Stocke les intervals actifs par élément
+const fadeIntervals = new WeakMap();
+
+function fadeOutAudio(el, duree = 600) {
+  if (!el || el.paused) return;
+  
+  // Annuler tout fade en cours
+  if (fadeIntervals.has(el)) {
+    clearInterval(fadeIntervals.get(el));
+    fadeIntervals.delete(el);
+  }
+
+  const volumeDepart = el.volume;
+  const pas = volumeDepart / (duree / 30);
+  const interval = setInterval(() => {
+    if (el.volume > pas) {
+      el.volume -= pas;
+    } else {
+      el.volume = 0;
+      el.pause();
+      el.currentTime = 0;
+      clearInterval(interval);
+      fadeIntervals.delete(el);
+    }
+  }, 30);
+  fadeIntervals.set(el, interval);
+}
+
 function fadeInAudio(el, volumeCible, duree = 800) {
   if (!el) return;
+
+  // Annuler tout fade en cours
+  if (fadeIntervals.has(el)) {
+    clearInterval(fadeIntervals.get(el));
+    fadeIntervals.delete(el);
+  }
+
   el.volume = 0;
   el.play().catch(() => {});
+
+  if (duree === 0) {
+    el.volume = volumeCible;
+    return;
+  }
+
   const pas = volumeCible / (duree / 30);
   const interval = setInterval(() => {
     if (el.volume + pas < volumeCible) {
@@ -114,8 +155,10 @@ function fadeInAudio(el, volumeCible, duree = 800) {
     } else {
       el.volume = volumeCible;
       clearInterval(interval);
+      fadeIntervals.delete(el);
     }
   }, 30);
+  fadeIntervals.set(el, interval);
 }
 
 function stopAudio() {
@@ -129,7 +172,7 @@ function loadAudio(path) {
   setTimeout(() => {
     audio.src = path;
     audio.load();
-    fadeInAudio(audio, 1.0, 200);
+    fadeInAudio(audio, 1.0, 0);
   }, 400);
 }
 
@@ -139,19 +182,40 @@ function loadBruitage(path) {
   setTimeout(() => {
     bruitage.src = path;
     bruitage.load();
-    fadeInAudio(bruitage, 0.8, 200);
+    fadeInAudio(bruitage, 0.2, 200);
   }, 400);
 }
 
 //     MUSIQUE DE FOND
 // IMPORTANT DE AUTORISER LE PLAYBACK AUTOMATIQUE DANS NAVIGATEUR !!!!
 function loadMusique(jourNum) {
-  if (!musique) return;
-  if (jourNum === currentJourNum) return;
+  console.log(
+    "loadMusique appelée — jourNum:",
+    jourNum,
+    "currentJourNum:",
+    currentJourNum,
+  );
+
+  if (!musique) {
+    console.warn("élément musique introuvable");
+    return;
+  }
+  if (jourNum === currentJourNum) {
+    console.warn("même jour, skip");
+    return;
+  }
 
   const jourData = HISTOIRE.find((j) => j.jour === jourNum);
-  if (!jourData || !jourData.musique) return;
+  if (!jourData) {
+    console.warn("jourData introuvable pour jour", jourNum);
+    return;
+  }
+  if (!jourData.musique) {
+    console.warn("pas de champ musique dans jourData", jourData);
+    return;
+  }
 
+  console.log("chargement musique:", jourData.musique);
   currentJourNum = jourNum;
 
   fadeOutAudio(musique, 1200);
@@ -159,15 +223,21 @@ function loadMusique(jourNum) {
     musique.src = jourData.musique;
     musique.load();
     musique.loop = true;
-    fadeInAudio(musique, 0.1, 1500);
+    console.log("play musique:", musique.src);
+    fadeInAudio(musique, 0.1, 500);
   }, 1200);
 }
 
+// timer
 function clearTimer() {
   if (timerTimeout) {
     clearTimeout(timerTimeout);
     timerTimeout = null;
   }
+}
+
+function startTimer(duree, callback) {
+  timerTimeout = setTimeout(callback, duree);
 }
 
 //     HINTS
@@ -198,33 +268,11 @@ function hideHints() {
   });
 }
 
-//     JOUR NAV
-function updateJourNav(jourNum) {
-  document.querySelectorAll(".jour-btn").forEach((btn) => {
-    const j = parseInt(btn.dataset.jour);
-    btn.classList.toggle("active", j === jourNum);
-    btn.classList.toggle("locked", !unlockedJours.has(j));
-    btn.classList.toggle("unlocked", unlockedJours.has(j));
-  });
-}
-
-function goToJour(jour) {
-  if (!unlockedJours.has(jour)) return;
-  const jourData = HISTOIRE.find((j) => j.jour === jour);
-  if (jourData) goToScene(jourData.scenes[0].id);
-}
-
 // Render texte
 function renderText(texte) {
   if (!texte) return "";
   let result = texte;
   return result;
-}
-
-//     AVANCER
-function scheduleNext(nextId) {
-  if (!nextId) return;
-  setTimeout(() => goToScene(nextId), 1200);
 }
 
 //     GO TO SCENE
@@ -245,13 +293,11 @@ function goToScene(id) {
   const { scene, jourNum } = found;
   currentScene = scene;
 
-  unlockedJours.add(jourNum);
   clearTimer();
   stopAudio();
 
   if (bgOverlay) bgOverlay.style.opacity = OVERLAY_VALUES[jourNum - 1];
 
-  updateJourNav(jourNum);
   loadMusique(jourNum);
   loadVideo(scene.video);
   loadAudio(scene.audio);
@@ -285,12 +331,15 @@ function goToScene(id) {
 
     case "choice":
       if (skipBtn) skipBtn.style.visibility = "hidden";
+      console.log("choice state");
+
       showHints([scene.key]);
-      (scene.timer || 7000,
-        () => {
-          hideHints();
-          goToScene(scene.next.timeout);
-        });
+
+      startTimer(scene.timer ?? 5000, () => {
+        console.log("working");
+        hideHints();
+        goToScene(scene.next.timeout);
+      });
       break;
 
     case "free":
@@ -311,50 +360,6 @@ function goToScene(id) {
       break;
   }
 }
-
-//     RENDER SCENE
-// function renderScene(scene, jourNum) {
-//   const existing = stage.querySelector(".scene-el");
-//   if (existing) {
-//     existing.style.opacity = "0";
-//     existing.style.pointerEvents = "none";
-//   }
-
-//   const texteRendu = renderText(scene.texte, scene.blurred);
-//   const delay = existing ? 500 : 0;
-
-//   setTimeout(() => {
-//     stage.innerHTML = `
-//       <div class="scene-el absolute inset-0 flex flex-col items-center justify-center px-16 pb-24 opacity-0 pointer-events-none">
-//         <div class="max-w-6xl w-full text-center flex flex-col items-center gap-6">
-//           ${
-//             texteRendu
-//               ? `
-//           <p class="scene-text font-game text-4xl leading-relaxed text-cream
-//                      opacity-0 translate-y-2 transition-all duration-700 delay-300"
-//              style="text-shadow: 0 1px 10px rgba(0,0,0,0.8)">
-//             ${texteRendu}
-//           </p>`
-//               : ""
-//           }
-//         </div>
-//       </div>`;
-
-//     const el = stage.querySelector(".scene-el");
-//     if (!el) return;
-
-//     requestAnimationFrame(() => {
-//       requestAnimationFrame(() => {
-//         el.style.opacity = "1";
-//         el.style.pointerEvents = "auto";
-//         el.querySelectorAll(".scene-text").forEach((c) => {
-//           c.classList.remove("opacity-0", "translate-y-2");
-//           c.classList.add("opacity-100", "translate-y-0");
-//         });
-//       });
-//     });
-//   }, delay);
-// }
 
 function renderScene(scene, jourNum) {
   const texteRendu = renderText(scene.texte, scene.blurred);
@@ -402,6 +407,7 @@ function showTransitionJour(nextJour) {
   // Charger la vidéo et la musique du jour suivant tout de suite
   const jourData = HISTOIRE.find((j) => j.jour === nextJour);
   if (jourData) {
+    currentJourNum = 0;
     loadMusique(nextJour);
     // Charger la première vidéo du jour en arrière-plan pendant la transition
     const premiereScene = jourData.scenes[0];
@@ -458,6 +464,21 @@ function showFin() {
     </div>`;
 }
 
+// DEBUG — accès direct à un jour (à retirer en production)
+function debugGoToJour(jourNum) {
+  const jourData = HISTOIRE.find((j) => j.jour === jourNum);
+  if (!jourData) {
+    console.warn("Jour introuvable :", jourNum);
+    return;
+  }
+  enTransition = false;
+  clearTimer();
+  stopAudio();
+  currentJourNum = 0; // forcer le rechargement de la musique
+  goToScene(jourData.scenes[0].id);
+  console.log(`DEBUG — sauté au jour ${jourNum}`);
+}
+
 // CLAVIER / MAKEY MAKEY
 // T = téléphone   C = café   D = bain   L = liste
 // Espace = passer, Escape = fermer l'aide
@@ -473,6 +494,13 @@ function handleKeydown(e) {
   if (e.key === " ") {
     e.preventDefault();
     handleSkip();
+    return;
+  }
+
+  // DEBUG
+  const num = parseInt(e.key);
+  if (!isNaN(num) && num >= 1 && num <= 7) {
+    debugGoToJour(num);
     return;
   }
 

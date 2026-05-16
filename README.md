@@ -8,6 +8,20 @@ A propos -> changer nos desc
 cafe ensuite douche = probleme
 bouton retour sur telephone/faire auto
 
+Audio
+2C-errer - manque
+
+Visuel
+Pas de visuels lors des dialogues
+
+# Spécifications
+
+Il faut autoriser le playback automatique dans le navigateur. Sans cela, le projet risque de ne pas fonctionner comme prévu.
+
+Bouton skip apparait dans toutes les scenes sauf lors des choix.
+
+Dans jour 1, la machine à café nous rend directement à l'appel.
+
 # Septs Silences
 
 ### **À propos**
