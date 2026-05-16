@@ -8,7 +8,6 @@
         "type": "auto",
         "video": "./videos/jour1/intro.mp4",
         "audio": "./audio/DIALOGUES/jour1/A1.mp3",
-        "bruitage": "audio/BRUITAGES/JOUR 1/j1-horloge.mp3",
         "texte": "Nous sommes le 3 octobre 2005. Les teintes automnales commencent déjà à éclairer votre petit appartement de fortune ; vos paupières semblent peser une tonne.",
         "next": "1B"
       },
@@ -17,7 +16,6 @@
         "type": "free",
         "video": "videos/jour1/salon.mp4",
         "audio": null,
-        "bruitage": null,
         "texte": null,
         "choix": [
           { "key": "C", "next": "1C" },
@@ -30,7 +28,6 @@
         "type": "auto",
         "video": "videos/jour1/cafe.mp4",
         "audio": "audio/DIALOGUES/jour1/1C.mp3",
-        "bruitage": "audio/BRUITAGES/JOUR 1/j1-cafe.mp3",
         "texte": "Vous allumez la machine à café, rapidement, une bonne senteur se dégage dans toute la pièce.",
         "next": "1F-1"
       },
@@ -39,7 +36,6 @@
         "type": "auto",
         "video": "videos/jour1/douche.mp4",
         "audio": "audio/DIALOGUES/jour1/1D.mp3",
-        "bruitage": "audio/BRUITAGES/JOUR 1/j1-shower.mp3",
         "texte": "Vous prenez une douche chaude. Vos muscles semblent se détendre et vos vieux os vous remercient.",
         "next": "1DA"
       },
@@ -51,7 +47,7 @@
         "texte": null,
         "choix": [
           { "key": "C", "next": "1C" },
-          { "key": "T", "next": "1EB" }
+          { "key": "T", "next": "1EA" }
         ]
       },
       {
@@ -59,7 +55,6 @@
         "type": "auto",
         "video": "videos/jour1/douche.mp4",
         "audio": "audio/DIALOGUES/jour1/1D.mp3",
-        "bruitage": "audio/BRUITAGES/JOUR 1/j1-shower.mp3",
         "texte": "Vous prenez une douche chaude. Vos muscles semblent se détendre et vos vieux os vous remercient.",
         "next": "1DC"
       },
@@ -78,18 +73,7 @@
         "audio": null,
         "texte": "Personne ne semble appeler…",
         "timer": 3000,
-        "next": "1EAA"
-      },
-      {
-        "id": "1EAA",
-        "type": "free",
-        "video": "videos/jour1/salon.mp4",
-        "audio": null,
-        "texte": null,
-        "choix": [
-          { "key": "C", "next": "1C" },
-          { "key": "D", "next": "1DB" }
-        ]
+        "next": "1ED"
       },
       {
         "id": "1EB",
@@ -98,15 +82,27 @@
         "audio": null,
         "texte": "Personne ne semble appeler…",
         "timer": 3000,
-        "next": "1EBA"
+        "next": "1ED"
       },
       {
-        "id": "1EBA",
+        "id": "1EC",
+        "type": "auto",
+        "video": "videos/jour1/faux-telephone.mp4",
+        "audio": null,
+        "texte": "Personne ne semble appeler…",
+        "timer": 3000,
+        "next": "1ED"
+      },
+      {
+        "id": "1ED",
         "type": "free",
         "video": "videos/jour1/salon.mp4",
         "audio": null,
         "texte": null,
-        "choix": [{ "key": "C", "next": "1C" }]
+        "choix": [
+          { "key": "C", "next": "1DB" },
+          { "key": "D", "next": "1D-post-post-cafe" }
+        ]
       },
       {
         "id": "1F-1",
@@ -184,7 +180,7 @@
         "timer": 5000,
         "video": "videos/jour1/liste.mp4",
         "audio": "audio/DIALOGUES/jour1/1G-liste.mp3",
-        "texte": "Vous avez des courses à faire pour demain, mieux vaudrait y aller maintenant.",
+        "texte": "Déjeuner — se laver — faire les courses. Vous avez des courses à faire pour demain, mieux vaudrait y aller maintenant.",
         "next": "1H"
       },
       {

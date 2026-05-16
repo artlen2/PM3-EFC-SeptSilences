@@ -9,7 +9,6 @@ let currentScene = null;
 let unlockedJours = new Set([1]);
 let timerTimeout = null;
 let currentJourNum = 0;
-let enTransition = false;
 
 // Opacité overlay sombre par jour (index 0 = jour 1)
 const OVERLAY_VALUES = [0.3, 0.38, 0.46, 0.54, 0.62, 0.7, 0.8];
@@ -87,60 +86,36 @@ function loadVideo(path) {
 }
 
 //     AUDIO
-function fadeOutAudio(el, duree = 600) {
-  if (!el || el.paused) return;
-  const volumeDepart = el.volume;
-  const pas = volumeDepart / (duree / 30);
-  const interval = setInterval(() => {
-    if (el.volume > pas) {
-      el.volume -= pas;
-    } else {
-      el.volume = 0;
-      el.pause();
-      el.currentTime = 0;
-      clearInterval(interval);
-    }
-  }, 30);
-}
-
-function fadeInAudio(el, volumeCible, duree = 800) {
-  if (!el) return;
-  el.volume = 0;
-  el.play().catch(() => {});
-  const pas = volumeCible / (duree / 30);
-  const interval = setInterval(() => {
-    if (el.volume + pas < volumeCible) {
-      el.volume += pas;
-    } else {
-      el.volume = volumeCible;
-      clearInterval(interval);
-    }
-  }, 30);
+function loadAudio(path) {
+  if (!path) {
+    audio.src = "";
+    audio.volume = 1;
+    return;
+  }
+  audio.src = path;
+  audio.load();
+  audio.volume = 1;
+  audio.play().catch(() => {});
 }
 
 function stopAudio() {
-  fadeOutAudio(audio, 400);
-  fadeOutAudio(bruitage, 400);
-}
-
-function loadAudio(path) {
-  fadeOutAudio(audio, 400);
-  if (!path) return;
-  setTimeout(() => {
-    audio.src = path;
-    audio.load();
-    fadeInAudio(audio, 1.0, 200);
-  }, 400);
+  audio.pause();
+  audio.currentTime = 0;
+  bruitage.pause();
+  bruitage.currentTime = 0;
 }
 
 function loadBruitage(path) {
-  fadeOutAudio(bruitage, 400);
-  if (!path) return;
-  setTimeout(() => {
-    bruitage.src = path;
-    bruitage.load();
-    fadeInAudio(bruitage, 0.8, 200);
-  }, 400);
+  if (!path) {
+    bruitage.pause();
+    bruitage.currentTime = 0;
+    bruitage.src = "";
+    return;
+  }
+  bruitage.src = path;
+  bruitage.load();
+  bruitage.volume = 0.8; // ajuste selon le mix voulu
+  bruitage.play().catch(() => {});
 }
 
 //     MUSIQUE DE FOND
@@ -148,19 +123,15 @@ function loadBruitage(path) {
 function loadMusique(jourNum) {
   if (!musique) return;
   if (jourNum === currentJourNum) return;
-
   const jourData = HISTOIRE.find((j) => j.jour === jourNum);
   if (!jourData || !jourData.musique) return;
 
+  musique.src = jourData.musique;
+  musique.load();
+  musique.volume = 0.1; // ajuster le volume si c trop fort
+  musique.loop = true;
+  musique.play().catch(() => {});
   currentJourNum = jourNum;
-
-  fadeOutAudio(musique, 1200);
-  setTimeout(() => {
-    musique.src = jourData.musique;
-    musique.load();
-    musique.loop = true;
-    fadeInAudio(musique, 0.1, 1500);
-  }, 1200);
 }
 
 function clearTimer() {
@@ -214,7 +185,7 @@ function goToJour(jour) {
   if (jourData) goToScene(jourData.scenes[0].id);
 }
 
-// Render texte
+//     TEXTE AVEC MOTS FLOUS
 function renderText(texte) {
   if (!texte) return "";
   let result = texte;
@@ -230,7 +201,6 @@ function scheduleNext(nextId) {
 //     GO TO SCENE
 function goToScene(id) {
   if (!id) return;
-  if (enTransition) return;
   if (id === "FIN") {
     showFin();
     return;
@@ -284,7 +254,7 @@ function goToScene(id) {
       break;
 
     case "choice":
-      if (skipBtn) skipBtn.style.visibility = "hidden";
+      if (skipBtn) skipBtn.style.visibility = "visible";
       showHints([scene.key]);
       (scene.timer || 7000,
         () => {
@@ -397,44 +367,18 @@ function renderScene(scene, jourNum) {
 //     TRANSITION JOUR
 function showTransitionJour(nextJour) {
   hideHints();
-  enTransition = true;
-
-  // Charger la vidéo et la musique du jour suivant tout de suite
-  const jourData = HISTOIRE.find((j) => j.jour === nextJour);
-  if (jourData) {
-    loadMusique(nextJour);
-    // Charger la première vidéo du jour en arrière-plan pendant la transition
-    const premiereScene = jourData.scenes[0];
-    if (premiereScene?.video) loadVideo(premiereScene.video);
-  }
 
   stage.innerHTML = `
     <div class="absolute inset-0 flex items-center justify-center">
-      <p id="transition-texte" class="font-title text-cream text-4xl"
-         style="opacity: 0; transition: opacity 800ms ease;">
+      <p class="font-title text-cream text-4xl">
         Jour ${nextJour}
       </p>
     </div>`;
 
-  const texte = document.getElementById("transition-texte");
-
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      texte.style.opacity = "1";
-    });
-  });
-
   setTimeout(() => {
-    texte.style.opacity = "0";
-  }, 800 + 2000);
-
-  setTimeout(
-    () => {
-      enTransition = false;
-      if (jourData) goToScene(jourData.scenes[0].id);
-    },
-    800 + 2000 + 600,
-  );
+    const jourData = HISTOIRE.find((j) => j.jour === nextJour);
+    if (jourData) goToScene(jourData.scenes[0].id);
+  }, 8000);
 }
 
 //     FIN DE L'EXPÉRIENCE
