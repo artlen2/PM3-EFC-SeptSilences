@@ -13,6 +13,11 @@ Audio
 
 Visuel
 Pas de visuels lors des dialogues
+3C-trouve - Liste
+3D-dialogue-1 - dialogue
+3G-ecrit - journal
+4B-carnet - journal
+4E-choix-carnet
 
 # Spécifications
 
@@ -20,6 +25,8 @@ Il faut autoriser le playback automatique dans le navigateur. Sans cela, le proj
 
 Bouton skip apparait dans toutes les scenes sauf lors des choix.
 
+Pas un bug, mais une feature :
+Nous pouvons naviguer dans les journées en tapant le numéro du jour sur le clavier.
 Dans jour 1, la machine à café nous rend directement à l'appel.
 
 # Septs Silences

@@ -443,15 +443,15 @@
       {
         "id": "3D-cafe-fils",
         "type": "auto",
-        "video": "videos/jour3/cafe.mp4",
+        "video": "videos/jour3/pieceSoir.mp4",
         "audio": "audio/DIALOGUES/jour3/3D-cafe.mp3",
-        "texte": "Vous laissez entrer votre fils. Vous partez faire du café. Vous revenez voir votre fils dans le salon, silencieusement.",
+        "texte": "Vous laissez entrer votre fils. Celui-ci s’installe dans le vieux sofa. Vous regardez l’heure un instant, et partez faire du café. Vous revenez voir votre fils dans le salon, silencieusement.",
         "next": "3D-dialogue-5"
       },
       {
         "id": "3D-dialogue-5",
         "type": "auto",
-        "video": "videos/jour3/salon.mp4",
+        "video": "videos/jour3/pieceSoir.mp4",
         "audio": "audio/DIALOGUES/jour3/3D-d5.mp3",
         "texte": "Tu n'aurais pas oublié quelque chose ?",
         "next": "3E-choix-souvenir"
@@ -461,9 +461,9 @@
         "type": "choice",
         "key": "C",
         "timer": 6000,
-        "video": "videos/jour3/salon.mp4",
+        "video": "videos/jour3/cafe.mp4",
         "audio": null,
-        "texte": null,
+        "texte": "?",
         "next": {
           "success": "3E-souvient",
           "timeout": "3E-oublie"
@@ -472,7 +472,7 @@
       {
         "id": "3E-souvient",
         "type": "auto",
-        "video": "videos/jour3/salon.mp4",
+        "video": "videos/jour3/pieceSoir.mp4",
         "audio": "audio/DIALOGUES/jour3/3E-souvient.mp3",
         "texte": "Si je sais, une chose à la fois, tu veux ? Vous ne faites que me mettre la pression ! Un peu de patience, bon sang.",
         "next": "3F"
@@ -480,7 +480,7 @@
       {
         "id": "3E-oublie",
         "type": "auto",
-        "video": "videos/jour3/salon.mp4",
+        "video": "videos/jour3/pieceSoir.mp4",
         "audio": "audio/DIALOGUES/jour3/3E-oublie.mp3",
         "texte": "Raconte-moi plutôt comment ça se passe au travail ces derniers temps ?",
         "next": "3F"
@@ -488,9 +488,9 @@
       {
         "id": "3F",
         "type": "auto",
-        "video": "videos/jour3/salon.mp4",
+        "video": "videos/jour3/porte.mp4",
         "audio": "audio/DIALOGUES/jour3/3F.mp3",
-        "texte": "Après cette courte visite de votre fils, vous vous dites que vous feriez mieux de noter ce qu'il vous a dit.",
+        "texte": "Après cette courte visite de votre fils, vous vous dites que vous feriez mieux de noter ce qu’il vous a dit. De cette façon, on ne pourra rien vous reprocher la prochaine fois.",
         "next": "3G-choix-journal"
       },
       {
@@ -511,13 +511,13 @@
         "type": "auto",
         "video": "videos/jour3/carnet.mp4",
         "audio": "audio/DIALOGUES/jour3/3G-ecrit.mp3",
-        "texte": "Vous écrivez le plus possible dans le carnet, même si plus vous y pensez, plus vous avez du mal à vous souvenir de ce qu'il vous a raconté.",
+        "texte": "Vous écrivez le plus possible dans le carnet, même si plus vous y pensez, plus vous avez du mal à vous souvenir de ce qu’il vous a raconté.",
         "next": "FIN-JOUR-3"
       },
       {
         "id": "3G-repose",
         "type": "auto",
-        "video": "videos/jour3/nuit.mp4",
+        "video": "videos/jour3/lit.mp4",
         "audio": "audio/DIALOGUES/jour3/3G-repose.mp3",
         "texte": "Cette conversation vous a épuisée, il est grand temps pour vous d'aller vous reposer.",
         "next": "FIN-JOUR-3"
@@ -529,6 +529,7 @@
       }
     ]
   },
+
   {
     "jour": 4,
     "musique": "audio/MUSIQUE/Track_j4.mp3",
@@ -536,23 +537,22 @@
       {
         "id": "4A",
         "type": "auto",
-        "video": "videos/jour4/intro.mp4",
+        "video": "videos/jour4/horloge.mp4",
         "audio": "audio/DIALOGUES/jour4/4A.mp3",
-        "texte": "15 février 2008. Le temps passe tellement vite et les années, qui pour vous semblent toutes si similaires, vous semblent s'écouler à une vitesse phénoménale.",
+        "texte": "15 février 2008. Le temps passe tellement vite et les années, qui pour vous semblent toutes si similaires, vous semblent s’écouler à une vitesse phénoménale.",
         "next": "4B"
       },
       {
         "id": "4B",
-        "type": "choice",
-        "key": "L",
-        "timer": 7000,
-        "video": "videos/jour4/carnet.mp4",
+        "type": "free",
+        "video": "videos/jour4/lit.mp4",
         "audio": null,
-        "texte": "Chercher son carnet ?",
-        "next": {
-          "success": "4B-carnet",
-          "timeout": "4C"
-        }
+        "bruitage": null,
+        "texte": "Que faites-vous ?",
+        "choix": [
+          { "key": "C", "next": "4C" },
+          { "key": "L", "next": "4B-carnet" }
+        ]
       },
       {
         "id": "4B-carnet",
@@ -560,7 +560,6 @@
         "video": "videos/jour4/carnet.mp4",
         "audio": "audio/DIALOGUES/jour4/4B-carnet.mp3",
         "texte": "Votre carnet contient les annotations des jours précédents et une liste de rappels.",
-        "blurred": ["▅▅▅▅"],
         "next": "4C"
       },
       {
@@ -581,7 +580,8 @@
         "type": "auto",
         "video": "videos/jour4/cafe.mp4",
         "audio": "audio/DIALOGUES/jour4/4C-cafe.mp3",
-        "texte": "Vous décidez de faire un café. Un instant, vous vous demandez où se trouvent vos tasses, vous en prenez donc une sale qui traîne. Vous vous demandez comment marche cette machine ?",
+        "bruitage": "audio/BRUITAGES/JOUR 4/j4-boutons.mp3",
+        "texte": "Vous décidez de faire un café. Un instant, vous vous demandez où se trouvent vos tasses, vous en prenez donc une sale qui traîne. Un instant, vous vous demandez comment marche cette machine ? Une nouvelle avec plein de boutons trop compliqués pour vous.",
         "next": "4C-boutons"
       },
       {
@@ -591,7 +591,7 @@
         "timer": 5000,
         "video": "videos/jour4/cafe.mp4",
         "audio": null,
-        "texte": "Appuyer maladroitement sur les boutons ?",
+        "texte": "Appuyer sur les boutons ?",
         "next": {
           "success": "4C-mauvais-cafe",
           "timeout": "4C-mauvais-cafe"
@@ -602,7 +602,8 @@
         "type": "auto",
         "video": "videos/jour4/cafe.mp4",
         "audio": "audio/DIALOGUES/jour4/4C-mauvais.mp3",
-        "texte": "Vous finissez par faire un café plein d'eau, avec du dépôt à l'intérieur. Vous irez vous plaindre à votre fils de cette horrible machine un jour.",
+        "bruitage": "audio/BRUITAGES/JOUR 1/j1-cafe.mp3",
+        "texte": "Vous finissez par faire un café plein d’eau, avec du dépôt à l’intérieur. Vous irez vous plaindre à votre fils de cette horrible machine un jour.",
         "next": "4D"
       },
       {
@@ -617,10 +618,10 @@
         "id": "4D-choix-reconnait",
         "type": "choice",
         "key": "T",
-        "timer": 5000,
+        "timer": 7000,
         "video": "videos/jour4/telephone.mp4",
         "audio": null,
-        "texte": null,
+        "texte": "C'est qui ?",
         "next": {
           "success": "4D-reconnait",
           "timeout": "4D-reconnait-pas"
@@ -631,7 +632,8 @@
         "type": "auto",
         "video": "videos/jour4/telephone.mp4",
         "audio": "audio/DIALOGUES/jour4/4D-reconnait-pas.mp3",
-        "texte": "Ah non les faux numéros, ça ne marche pas avec moi ! Au revoir madame, allez embêter quelqu'un d'autre !",
+        "bruitage": "audio/BRUITAGES/JOUR 4/j4-hangup.mp3",
+        "texte": "Ah non les faux numéros, ça ne marche pas avec moi ! Au revoir madame, allez embêter quelqu'un d’autre !",
         "next": "4F"
       },
       {
@@ -684,8 +686,7 @@
         "type": "auto",
         "video": "videos/jour4/carnet.mp4",
         "audio": "audio/DIALOGUES/jour4/4E-note.mp3",
-        "texte": "Vous écrivez dans le carnet le rendez-vous avec le médecin, de façon décousue. Vendredi de cette semaine… C'est le combien déjà ?",
-        "blurred": ["▅▅▅▅"],
+        "texte": "Vous écrivez dans le carnet le rendez-vous avec le médecin, de façon décousue. Vendredi de cette semaine … C’est le combien déjà ?",
         "next": "4F"
       },
       {
@@ -693,7 +694,7 @@
         "type": "auto",
         "video": "videos/jour4/salon.mp4",
         "audio": "audio/DIALOGUES/jour4/4E-perd.mp3",
-        "texte": "Vous avez beau chercher autour de vous, vous ne trouvez pas votre carnet. Vendredi de cette semaine ? Vous vous dites que vous êtes capable de le retenir.",
+        "texte": "Vous avez beau chercher autour de vous, vous ne trouvez pas votre carnet. Vendredi de cette semaine ? Ça ne doit pas être dans bien longtemps, alors vous vous dites que vous êtes capable de le retenir.",
         "next": "4F"
       },
       {
@@ -701,7 +702,7 @@
         "type": "auto",
         "video": "videos/jour4/nuit.mp4",
         "audio": "audio/DIALOGUES/jour4/4F.mp3",
-        "texte": "Toutes ces histoires de dates vous ont totalement embrouillé la tête. Épuisée, vous décidez de vous coucher un instant, mais vous allez dormir tout le reste de la journée.",
+        "texte": "Toutes ces histoires de dates vous ont totalement embrouillé la tête, à vos yeux, le temps passe vite. Épuisée, vous décidez de vous coucher un instant, mais vous allez dormir tout le reste de la journée.",
         "next": "FIN-JOUR-4"
       },
       {
@@ -720,7 +721,7 @@
         "type": "auto",
         "video": "videos/jour5/intro.mp4",
         "audio": "audio/DIALOGUES/jour5/5A.mp3",
-        "texte": "Nous sommes le 3 juin 2010, et à vos yeux, la chaleur vous a réveillé tôt le matin. Vous n'avez pas conscience qu'il est en réalité déjà quatorze heures.",
+        "texte": "Nous sommes le 3 juin 2010, et à vos yeux, la chaleur vous a réveillé tôt le matin. Vous n’avez pas conscience qu’il est en réalité déjà quatorze heures. Les aiguilles de votre horloge semblent se mêler et s’entremêler depuis maintenant des semaines, voire des mois, si ce n’est des années …",
         "next": "5A-suite"
       },
       {
@@ -728,7 +729,7 @@
         "type": "auto",
         "video": "videos/jour5/chambre.mp4",
         "audio": "audio/DIALOGUES/jour5/5A-suite.mp3",
-        "texte": "Votre pyjama sent la transpiration de cette nuit et la vieillesse. Par maladresse, par oubli ou par incapacité, vous enfilez directement un haut par-dessus votre chemise de nuit.",
+        "texte": "Votre pyjama sent la transpiration de cette nuit et la vieillesse. Vous vous dirigez hors du lit pour prendre quelques vêtements. Par maladresse, par oubli ou par incapacité, vous enfilez directement un haut par-dessus votre chemise de nuit. Vous répétez la même chose pour le bas.",
         "next": "5B"
       },
       {
@@ -736,7 +737,7 @@
         "type": "auto",
         "video": "videos/jour5/salon.mp4",
         "audio": "audio/DIALOGUES/jour5/5B.mp3",
-        "texte": "Alors que vous errez dans la pièce principale, vous entendez qu'on toque à la porte.",
+        "texte": "Alors que vous errez dans la pièce principale, vous entendez qu’on toque à la porte.",
         "next": "5B-choix-porte"
       },
       {
@@ -757,7 +758,23 @@
         "type": "auto",
         "video": "videos/jour5/exterieur.mp4",
         "audio": "audio/DIALOGUES/jour5/5C-ouvre.mp3",
-        "texte": "Vous ouvrez la porte, éblouie par le soleil. Vous ne voyez personne. Vous faites un pas à l'extérieur, puis un deuxième…",
+        "texte": "Vous ne vous rappelez pas d'attendre quelqu’un … Quoi qu’il en soit, vous vous dirigez vers cette dernière pour l’ouvrir …",
+        "next": "5CA-ouvre"
+      },
+      {
+        "id": "5CA-ouvre",
+        "type": "auto",
+        "video": "videos/jour5/exterieur.mp4",
+        "audio": "audio/DIALOGUES/jour5/5C-ouvre.mp3",
+        "texte": "Vous ouvrez la porte, éblouie par le soleil qui vous brûle la rétine. Vous ne voyez personne. Vous faites un pas à l’extérieur, puis un deuxième …",
+        "next": "5CB-ouvre"
+      },
+      {
+        "id": "5CB-ouvre",
+        "type": "auto",
+        "video": "videos/jour5/exterieur.mp4",
+        "audio": "audio/DIALOGUES/jour5/5C-ouvre.mp3",
+        "texte": "VoTout se confond autour de vous. La lumière vous aveugle et vous avancez sans savoir où vous allez …",
         "next": "5C-dialogue-petit-fils"
       },
       {
@@ -765,7 +782,15 @@
         "type": "auto",
         "video": "videos/jour5/porte.mp4",
         "audio": "audio/DIALOGUES/jour5/5C-nouvre-pas.mp3",
-        "texte": "Vous ne vous rappelez pas d'attendre quelqu'un… Et si quelqu'un vous voulait du mal ? Il vaut mieux ne pas répondre. Mais le bruit ne s'arrête pas.",
+        "texte": "Vous ne vous rappelez pas d'attendre quelqu’un … Et si quelqu’un vous voulait du mal ? C’est peut-être ce nouveau voisin bizarre, ou des gens qui en veulent après vous. Il vaut mieux ne pas répondre, ils penseront peut-être que vous êtes absente …",
+        "next": "5CA-nouvre-pas"
+      },
+      {
+        "id": "5CA-nouvre-pas",
+        "type": "auto",
+        "video": "videos/jour5/porte.mp4",
+        "audio": "audio/DIALOGUES/jour5/5C-nouvre-pas.mp3",
+        "texte": "Mais le bruit ne s’arrête pas, vous entendez encore tambouriner contre la porte, de plus en plus fort. Vous vous dirigez vers cette dernière, bien déterminée à faire la leçon qui ose vous déranger.",
         "next": "5C-ouvre-quand-meme"
       },
       {
@@ -773,7 +798,7 @@
         "type": "auto",
         "video": "videos/jour5/exterieur.mp4",
         "audio": "audio/DIALOGUES/jour5/5C-quand-meme.mp3",
-        "texte": "En ouvrant la porte, la lumière vive du soleil vous empêche de pleinement distinguer qui se trouve face à vous…",
+        "texte": "En ouvrant la porte, la lumière vive du soleil vous empêche de pleinement distinguer qui se trouve face à vous …",
         "next": "5C-choix-reconnait"
       },
       {
@@ -781,7 +806,7 @@
         "type": "auto",
         "video": "videos/jour5/exterieur.mp4",
         "audio": "audio/DIALOGUES/jour5/5C-pg-d1.mp3",
-        "texte": "Mamie, qu'est-ce que tu fais dehors ? Ce n'est pas prudent que tu sortes seule. Attends, mais pourquoi tu es dans cette tenue ?",
+        "texte": "Mamie, qu’est-ce que tu fais dehors ? Attention, il y a beaucoup de passage ici. Ce n’est pas prudent que tu sortes seule, on te l’a déjà dit, tu te rappelles ce qui s’est passé la fois dernière … Attends, mais pourquoi tu es dans cette tenue ?",
         "next": "5C-pg-d2"
       },
       {
@@ -789,13 +814,13 @@
         "type": "auto",
         "video": "videos/jour5/exterieur.mp4",
         "audio": "audio/DIALOGUES/jour5/5C-pg-d2.mp3",
-        "texte": "Bon, ce n'est rien, je vais t'aider d'accord ? Donne-moi ton bras.",
-        "next": "5D-fin-ouvre"
+        "texte": "Bon, ce n’est rien, je vais t’aider d’accord ? Donne-moi ton bras.",
+        "next": "5D-fin-reconnait"
       },
       {
         "id": "5C-choix-reconnait",
         "type": "choice",
-        "key": "T",
+        "key": "L",
         "timer": 5000,
         "video": "videos/jour5/exterieur.mp4",
         "audio": null,
@@ -810,7 +835,7 @@
         "type": "auto",
         "video": "videos/jour5/exterieur.mp4",
         "audio": "audio/DIALOGUES/jour5/5C-reconnait.mp3",
-        "texte": "Oui c'est moi ! Ton petit-fils préféré. Bon allez, on te ramène chez toi, je te fais prendre une bonne douche et je te change.",
+        "texte": "Oui c’est moi ! Ton petit-fils préféré. Bon allez, on te ramène chez toi, je te fais prendre une bonne douche et je te change. Après, on trouvera quelque chose de bon à manger ? Je suis sûr que tu n’as pas encore mangé.",
         "next": "5D-fin-reconnait"
       },
       {
@@ -818,7 +843,7 @@
         "type": "auto",
         "video": "videos/jour5/exterieur.mp4",
         "audio": "audio/DIALOGUES/jour5/5C-reconnait-pas.mp3",
-        "texte": "Qui êtes-vous, jeune homme ? C'est vous qui venez me déranger à cette heure ?! Vous n'avez pas honte ?",
+        "texte": "Qui êtes-vous, jeune homme ? C’est vous qui venez me déranger à cette heure ?! Vous n’avez pas honte ?",
         "next": "5C-rp-d2"
       },
       {
@@ -826,7 +851,7 @@
         "type": "auto",
         "video": "videos/jour5/exterieur.mp4",
         "audio": "audio/DIALOGUES/jour5/5C-rp-d2.mp3",
-        "texte": "Non mamie, c'est moi. Ton petit-fils Antoine ! Je t'avais dit que je passerais aujourd'hui.",
+        "texte": "Non mamie, c’est moi. Ton petit-fils Antoine ! Je t’avais dit que je passerais aujourd’hui, mais ce n’est pas grave si tu ne t’en souviens pas. Allez viens, je vais t’aider à te débarbouiller.",
         "next": "5C-rp-d3"
       },
       {
@@ -834,7 +859,7 @@
         "type": "auto",
         "video": "videos/jour5/exterieur.mp4",
         "audio": "audio/DIALOGUES/jour5/5C-rp-d3.mp3",
-        "texte": "Non, mon petit-fils est tout jeune, ça ne peut pas être vous. Et puis arrêtez d'insister, il y a mon mari à l'intérieur !",
+        "texte": "Non, mon petit-fils est tout jeune, ça ne peut pas être vous. Et puis arrêtez d’insister, il y a mon mari à l’intérieur ! Si je l’appelle, il ne va pas vous laisser entrer.",
         "next": "5C-rp-d4"
       },
       {
@@ -842,23 +867,23 @@
         "type": "auto",
         "video": "videos/jour5/exterieur.mp4",
         "audio": "audio/DIALOGUES/jour5/5C-rp-d4.mp3",
-        "texte": "Je t'assure que c'est bien moi, Antoine ! Mamie, ça fait déjà 15 ans que papi nous a quittés.",
+        "texte": "Je t’assure que c’est bien moi, Antoine ! Puis j’ai déjà 26 ans, je sais que je suis jeune mais quand-même. Mais mamie, tu sais, ça fait déjà 15 ans que papi nous a quittés.",
         "next": "5D-fin-reconnait-pas"
-      },
-      {
-        "id": "5D-fin-ouvre",
-        "type": "auto",
-        "video": "videos/jour5/salon.mp4",
-        "audio": "audio/DIALOGUES/jour5/5D-fin.mp3",
-        "texte": "Vous rejoignez l'appartement avec votre petit-fils. Pour vous, la nuit est tombée très vite.",
-        "next": "FIN-JOUR-5"
       },
       {
         "id": "5D-fin-reconnait",
         "type": "auto",
         "video": "videos/jour5/salon.mp4",
         "audio": "audio/DIALOGUES/jour5/5D-fin.mp3",
-        "texte": "Vous rejoignez l'appartement avec votre petit-fils. Une fois à l'intérieur, il vous aide avec une poignée de tâches. Pour vous, la nuit est tombée très vite.",
+        "texte": "Vous rejoignez l’appartement avec votre petit-fils. Vous ne vous souvenez pas d'avoir habité ici, car dans cette ruelle, toutes les maisons se ressemblent. Une fois à l’intérieur, votre petit-fils vous aide avec une poignée de tâches que vous ne vous rappelez pas devoir faire.",
+        "next": "5DA-fin-reconnait"
+      },
+      {
+        "id": "5DA-fin-reconnait",
+        "type": "auto",
+        "video": "videos/jour5/salon.mp4",
+        "audio": "audio/DIALOGUES/jour5/5D-fin.mp3",
+        "texte": "Pour vous, la nuit est tombée très vite - pour votre petit-fils, il est déjà tard quand il quitte votre appartement pour vous laisser dormir.",
         "next": "FIN-JOUR-5"
       },
       {
@@ -866,7 +891,23 @@
         "type": "auto",
         "video": "videos/jour5/salon.mp4",
         "audio": "audio/DIALOGUES/jour5/5D-fin-rp.mp3",
-        "texte": "Vous prenez son bras pour vous rendre à l'intérieur, loin de la lumière aveuglante du soleil. Pour vous, la nuit est tombée très vite.",
+        "texte": "Vous balbutiez pendant un moment, impossible de trouver une réponse convenable pour le jeune homme face à vous. Comme si on vous avait vidé de vos forces.",
+        "next": "5DA-fin-reconnait-pas"
+      },
+      {
+        "id": "5DA-fin-reconnait-pas",
+        "type": "auto",
+        "video": "videos/jour5/salon.mp4",
+        "audio": "audio/DIALOGUES/jour5/5D-fin-rp.mp3",
+        "texte": "Vous prenez son bras (ou du moins, il prend votre bras) pour vous rendre à l’intérieur, loin de la lumière aveuglante du soleil.",
+        "next": "5DB-fin-reconnait-pas"
+      },
+      {
+        "id": "5DB-fin-reconnait-pas",
+        "type": "auto",
+        "video": "videos/jour5/salon.mp4",
+        "audio": "audio/DIALOGUES/jour5/5D-fin-rp.mp3",
+        "texte": "Pour vous, la nuit est tombée très vite - pour votre petit-fils, il est déjà tard quand il quitte votre appartement pour vous laisser dormir.",
         "next": "FIN-JOUR-5"
       },
       {
@@ -885,7 +926,7 @@
         "type": "auto",
         "video": "videos/jour6/nuit.mp4",
         "audio": "audio/DIALOGUES/jour6/6A.mp3",
-        "texte": "Le calendrier affiche le 25 septembre 2013. Votre nuit est fragmentée en une succession de réveils répétés.",
+        "texte": "Le calendrier affiche le 25 septembre 2013. Vous errez dans l’obscurité, encore et encore, sans trouver votre chemin. Puis vous vous recouchez, encore et encore. Votre nuit est fragmentée en une succession de réveils répétés.",
         "next": "6A-suite"
       },
       {
@@ -893,8 +934,7 @@
         "type": "auto",
         "video": "videos/jour6/chambre.mp4",
         "audio": "audio/DIALOGUES/jour6/6A-suite.mp3",
-        "texte": "Quand le soleil semble s'être levé, vous enfilez des vêtements. Vous ne savez pas vraiment comment l'on est censé s'habiller en ▅▅▅▅.",
-        "blurred": ["▅▅▅▅"],
+        "texte": "Quand le soleil semble s’être levé, vous enfilez des vêtements chauds, ou trop légers ? Vous ne savez pas vraiment comment l’on est censé s’habiller en ▅▅▅▅.",
         "next": "6A-habiller"
       },
       {
@@ -902,15 +942,26 @@
         "type": "auto",
         "video": "videos/jour6/chambre.mp4",
         "audio": "audio/DIALOGUES/jour6/6A-habiller.mp3",
-        "texte": "Vous finissez par enfiler une fine chemise, tout en oubliant que vous aviez déjà mis un pull juste avant. Vous faites les cent pas dans la maison, persuadée que vous aviez quelque chose de prévu aujourd'hui. C'est peut-être aujourd'hui, le mariage de votre ▅▅, non ?",
-        "blurred": ["▅▅"],
+        "texte": "Vous finissez par enfiler une fine chemise, tout en oubliant que vous aviez déjà mis un pull juste avant.",
+        "next": "6A-perdu"
+      },
+      {
+        "id": "6A-perdu",
+        "type": "auto",
+        "video": "videos/jour6/chambre.mp4",
+        "audio": "audio/DIALOGUES/jour6/6A-habiller.mp3",
+        "texte": "Vous faites les cents pas dans la maison, persuadée que vous aviez quelque chose de prévu aujourd’hui. C’est peut-être aujourd’hui, le mariage de votre ▅▅, non ?",
         "next": "6B-choix-laver"
       },
+
+      //
+      //
+      //
       {
         "id": "6B-choix-laver",
         "type": "choice",
         "key": "D",
-        "timer": 7000,
+        "timer": 8000,
         "video": "videos/jour6/sdb.mp4",
         "audio": null,
         "texte": "Si tel est le cas, vous feriez mieux de vous laver.",
