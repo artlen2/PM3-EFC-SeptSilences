@@ -1,23 +1,27 @@
 # Problèmes/À régler
 
-Changer btn SKIP lors des scenes free,
-timerBar, timerWrap -> les enlever
 Page how-to -> makeymakey
 A propos -> changer nos desc
-
-cafe ensuite douche = probleme
-bouton retour sur telephone/faire auto
 
 Audio
 2C-errer - manque
 
 Visuel
 Pas de visuels lors des dialogues
+
 3C-trouve - Liste
 3D-dialogue-1 - dialogue
 3G-ecrit - journal
+
 4B-carnet - journal
 4E-choix-carnet
+
+6E - transitionDehors
+6E-voisine - voisine dehors
+
+7B - Motif du mur, personne dans couloirs
+7C-regard - visage du fils non reconnu
+7F - petite lampe
 
 # Spécifications
 

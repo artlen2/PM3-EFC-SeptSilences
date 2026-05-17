@@ -719,35 +719,29 @@
       {
         "id": "5A",
         "type": "auto",
-        "video": "videos/jour5/intro.mp4",
+        "video": "videos/jour5/horloge.mp4",
         "audio": "audio/DIALOGUES/jour5/5A.mp3",
-        "texte": "Nous sommes le 3 juin 2010, et à vos yeux, la chaleur vous a réveillé tôt le matin. Vous n’avez pas conscience qu’il est en réalité déjà quatorze heures. Les aiguilles de votre horloge semblent se mêler et s’entremêler depuis maintenant des semaines, voire des mois, si ce n’est des années …",
-        "next": "5A-suite"
-      },
-      {
-        "id": "5A-suite",
-        "type": "auto",
-        "video": "videos/jour5/chambre.mp4",
-        "audio": "audio/DIALOGUES/jour5/5A-suite.mp3",
-        "texte": "Votre pyjama sent la transpiration de cette nuit et la vieillesse. Vous vous dirigez hors du lit pour prendre quelques vêtements. Par maladresse, par oubli ou par incapacité, vous enfilez directement un haut par-dessus votre chemise de nuit. Vous répétez la même chose pour le bas.",
+        "bruitage": "audio/BRUITAGES/JOUR 5/j5-dehors.mp3",
+        "texte": "Nous sommes le 3 juin 2010, et à vos yeux, la chaleur vous a réveillé tôt le matin. Vous n'avez pas conscience qu'il est en réalité déjà quatorze heures. Les aiguilles de votre horloge semblent se mêler et s'entremêler depuis maintenant des semaines, voire des mois, si ce n'est des années…",
         "next": "5B"
       },
       {
         "id": "5B",
         "type": "auto",
-        "video": "videos/jour5/salon.mp4",
+        "video": "videos/jour5/lit.mp4",
         "audio": "audio/DIALOGUES/jour5/5B.mp3",
-        "texte": "Alors que vous errez dans la pièce principale, vous entendez qu’on toque à la porte.",
-        "next": "5B-choix-porte"
+        "bruitage": null,
+        "texte": "Votre pyjama sent la transpiration de cette nuit et la vieillesse. Vous vous dirigez hors du lit pour prendre quelques vêtements. Par maladresse, par oubli ou par incapacité, vous enfilez directement un haut par-dessus votre chemise de nuit. Vous répétez la même chose pour le bas.",
+        "next": "5C"
       },
       {
-        "id": "5B-choix-porte",
+        "id": "5C",
         "type": "choice",
         "key": "T",
-        "timer": 7000,
-        "video": "videos/jour5/porte.mp4",
-        "audio": null,
-        "texte": null,
+        "timer": 8000,
+        "video": "videos/jour5/piece.mp4",
+        "audio": "audio/BRUITAGES/JOUR 5/j5-ouvrirporte.mp3",
+        "texte": "Alors que vous errez dans la pièce principale, vous entendez qu'on toque à la porte. Ouvrir la porte ?",
         "next": {
           "success": "5C-ouvre",
           "timeout": "5C-nouvre-pas"
@@ -756,157 +750,131 @@
       {
         "id": "5C-ouvre",
         "type": "auto",
-        "video": "videos/jour5/exterieur.mp4",
-        "audio": "audio/DIALOGUES/jour5/5C-ouvre.mp3",
-        "texte": "Vous ne vous rappelez pas d'attendre quelqu’un … Quoi qu’il en soit, vous vous dirigez vers cette dernière pour l’ouvrir …",
-        "next": "5CA-ouvre"
-      },
-      {
-        "id": "5CA-ouvre",
-        "type": "auto",
-        "video": "videos/jour5/exterieur.mp4",
-        "audio": "audio/DIALOGUES/jour5/5C-ouvre.mp3",
-        "texte": "Vous ouvrez la porte, éblouie par le soleil qui vous brûle la rétine. Vous ne voyez personne. Vous faites un pas à l’extérieur, puis un deuxième …",
-        "next": "5CB-ouvre"
-      },
-      {
-        "id": "5CB-ouvre",
-        "type": "auto",
-        "video": "videos/jour5/exterieur.mp4",
-        "audio": "audio/DIALOGUES/jour5/5C-ouvre.mp3",
-        "texte": "VoTout se confond autour de vous. La lumière vous aveugle et vous avancez sans savoir où vous allez …",
-        "next": "5C-dialogue-petit-fils"
-      },
-      {
-        "id": "5C-nouvre-pas",
-        "type": "auto",
         "video": "videos/jour5/porte.mp4",
-        "audio": "audio/DIALOGUES/jour5/5C-nouvre-pas.mp3",
-        "texte": "Vous ne vous rappelez pas d'attendre quelqu’un … Et si quelqu’un vous voulait du mal ? C’est peut-être ce nouveau voisin bizarre, ou des gens qui en veulent après vous. Il vaut mieux ne pas répondre, ils penseront peut-être que vous êtes absente …",
-        "next": "5CA-nouvre-pas"
+        "audio": "audio/DIALOGUES/jour5/5C-ouvre.mp3",
+        "bruitage": "audio/BRUITAGES/JOUR 5/j5-ouvrirporte.mp3",
+        "texte": "Vous ouvrez la porte, éblouie par le soleil qui vous brûle la rétine. Vous ne voyez personne. Vous faites un pas à l'extérieur, puis un deuxième… Tout se confond autour de vous. La lumière vous aveugle et vous avancez sans savoir où vous allez…",
+        "next": "5C-pg-d1"
       },
       {
-        "id": "5CA-nouvre-pas",
+        "id": "5C-pg-d1",
         "type": "auto",
-        "video": "videos/jour5/porte.mp4",
-        "audio": "audio/DIALOGUES/jour5/5C-nouvre-pas.mp3",
-        "texte": "Mais le bruit ne s’arrête pas, vous entendez encore tambouriner contre la porte, de plus en plus fort. Vous vous dirigez vers cette dernière, bien déterminée à faire la leçon qui ose vous déranger.",
-        "next": "5C-ouvre-quand-meme"
-      },
-      {
-        "id": "5C-ouvre-quand-meme",
-        "type": "auto",
-        "video": "videos/jour5/exterieur.mp4",
-        "audio": "audio/DIALOGUES/jour5/5C-quand-meme.mp3",
-        "texte": "En ouvrant la porte, la lumière vive du soleil vous empêche de pleinement distinguer qui se trouve face à vous …",
-        "next": "5C-choix-reconnait"
-      },
-      {
-        "id": "5C-dialogue-petit-fils",
-        "type": "auto",
-        "video": "videos/jour5/exterieur.mp4",
+        "video": "videos/jour5/dehors.mp4",
         "audio": "audio/DIALOGUES/jour5/5C-pg-d1.mp3",
-        "texte": "Mamie, qu’est-ce que tu fais dehors ? Attention, il y a beaucoup de passage ici. Ce n’est pas prudent que tu sortes seule, on te l’a déjà dit, tu te rappelles ce qui s’est passé la fois dernière … Attends, mais pourquoi tu es dans cette tenue ?",
+        "bruitage": "audio/BRUITAGES/JOUR 5/j5-dehors.mp3",
+        "texte": "Mamie, qu'est-ce que tu fais dehors ? Attention, il y a beaucoup de passage ici. Ce n'est pas prudent que tu sortes seule, on te l'a déjà dit, tu te rappelles ce qui s'est passé la fois dernière… Attends, mais pourquoi tu es dans cette tenue ?",
         "next": "5C-pg-d2"
       },
       {
         "id": "5C-pg-d2",
         "type": "auto",
-        "video": "videos/jour5/exterieur.mp4",
+        "video": "videos/jour5/dehors.mp4",
         "audio": "audio/DIALOGUES/jour5/5C-pg-d2.mp3",
-        "texte": "Bon, ce n’est rien, je vais t’aider d’accord ? Donne-moi ton bras.",
-        "next": "5D-fin-reconnait"
+        "bruitage": null,
+        "texte": "Bon, ce n'est rien, je vais t'aider d'accord ? Donne-moi ton bras.",
+        "next": "5D-fin"
       },
       {
-        "id": "5C-choix-reconnait",
+        "id": "5C-nouvre-pas",
+        "type": "auto",
+        "video": "videos/jour5/piece.mp4",
+        "audio": "audio/DIALOGUES/jour5/5C-nouvre-pas.mp3",
+        "bruitage": "audio/BRUITAGES/JOUR 5/j5-ouvrirporte.mp3",
+        "texte": "Vous ne vous rappelez pas d'attendre quelqu'un… Et si quelqu'un vous voulait du mal ? C'est peut-être ce nouveau voisin bizarre, ou des gens qui en veulent après vous. Il vaut mieux ne pas répondre, ils penseront peut-être que vous êtes absente… Mais le bruit ne s'arrête pas, vous entendez encore tambouriner contre la porte, de plus en plus fort.",
+        "next": "5C-reconnait"
+      },
+      {
+        "id": "5C-reconnait",
         "type": "choice",
-        "key": "L",
-        "timer": 5000,
-        "video": "videos/jour5/exterieur.mp4",
-        "audio": null,
-        "texte": null,
+        "key": "T",
+        "timer": 6000,
+        "video": "videos/jour5/porte.mp4",
+        "audio": "audio/DIALOGUES/jour5/5C-reconnait.mp3",
+        "bruitage": null,
+        "texte": "En ouvrant la porte, la lumière vive du soleil vous empêche de pleinement distinguer qui se trouve face à vous… Le reconnaissez-vous ?",
         "next": {
-          "success": "5C-reconnait",
+          "success": "5C-reconnait-oui",
           "timeout": "5C-reconnait-pas"
         }
       },
       {
-        "id": "5C-reconnait",
+        "id": "5C-reconnait-oui",
         "type": "auto",
-        "video": "videos/jour5/exterieur.mp4",
-        "audio": "audio/DIALOGUES/jour5/5C-reconnait.mp3",
-        "texte": "Oui c’est moi ! Ton petit-fils préféré. Bon allez, on te ramène chez toi, je te fais prendre une bonne douche et je te change. Après, on trouvera quelque chose de bon à manger ? Je suis sûr que tu n’as pas encore mangé.",
-        "next": "5D-fin-reconnait"
+        "video": "videos/jour5/porte.mp4",
+        "audio": "audio/DIALOGUES/jour5/5C-rp-d2.mp3",
+        "bruitage": null,
+        "texte": "Oui c'est moi ! Ton petit-fils préféré. Bon allez, on te ramène chez toi, je te fais prendre une bonne douche et je te change. Après, on trouvera quelque chose de bon à manger ? Je suis sûr que tu n'as pas encore mangé.",
+        "next": "5C-rp-suite"
+      },
+      {
+        "id": "5C-rp-suite",
+        "type": "auto",
+        "video": "videos/jour5/pieceSoir.mp4",
+        "audio": "audio/DIALOGUES/jour5/5C-rp-d3.mp3",
+        "bruitage": null,
+        "texte": "Vous rejoignez l'appartement avec votre petit-fils. Vous ne vous souvenez pas d'avoir habité ici, car dans cette ruelle, toutes les maisons se ressemblent. Une fois à l'intérieur, votre petit-fils vous aide avec une poignée de tâches que vous ne vous rappelez pas devoir faire.",
+        "next": "5D-fin-rp"
       },
       {
         "id": "5C-reconnait-pas",
         "type": "auto",
-        "video": "videos/jour5/exterieur.mp4",
+        "video": "videos/jour5/porte.mp4",
         "audio": "audio/DIALOGUES/jour5/5C-reconnait-pas.mp3",
-        "texte": "Qui êtes-vous, jeune homme ? C’est vous qui venez me déranger à cette heure ?! Vous n’avez pas honte ?",
+        "bruitage": null,
+        "texte": "Qui êtes-vous, jeune homme ? C'est vous qui venez me déranger à cette heure ?! Vous n'avez pas honte ?",
         "next": "5C-rp-d2"
       },
       {
         "id": "5C-rp-d2",
         "type": "auto",
-        "video": "videos/jour5/exterieur.mp4",
+        "video": "videos/jour5/porte.mp4",
         "audio": "audio/DIALOGUES/jour5/5C-rp-d2.mp3",
-        "texte": "Non mamie, c’est moi. Ton petit-fils Antoine ! Je t’avais dit que je passerais aujourd’hui, mais ce n’est pas grave si tu ne t’en souviens pas. Allez viens, je vais t’aider à te débarbouiller.",
+        "bruitage": null,
+        "texte": "Non mamie, c'est moi. Ton petit-fils Antoine ! Je t'avais dit que je passerais aujourd'hui, mais ce n'est pas grave si tu ne t'en souviens pas. Allez viens, je vais t'aider à te débarbouiller.",
         "next": "5C-rp-d3"
       },
       {
         "id": "5C-rp-d3",
         "type": "auto",
-        "video": "videos/jour5/exterieur.mp4",
+        "video": "videos/jour5/porte.mp4",
         "audio": "audio/DIALOGUES/jour5/5C-rp-d3.mp3",
-        "texte": "Non, mon petit-fils est tout jeune, ça ne peut pas être vous. Et puis arrêtez d’insister, il y a mon mari à l’intérieur ! Si je l’appelle, il ne va pas vous laisser entrer.",
+        "bruitage": null,
+        "texte": "Non, mon petit-fils est tout jeune, ça ne peut pas être vous. Et puis arrêtez d'insister, il y a mon mari à l'intérieur ! Si je l'appelle, il ne va pas vous laisser entrer.",
         "next": "5C-rp-d4"
       },
       {
         "id": "5C-rp-d4",
         "type": "auto",
-        "video": "videos/jour5/exterieur.mp4",
+        "video": "videos/jour5/porte.mp4",
         "audio": "audio/DIALOGUES/jour5/5C-rp-d4.mp3",
-        "texte": "Je t’assure que c’est bien moi, Antoine ! Puis j’ai déjà 26 ans, je sais que je suis jeune mais quand-même. Mais mamie, tu sais, ça fait déjà 15 ans que papi nous a quittés.",
-        "next": "5D-fin-reconnait-pas"
+        "bruitage": null,
+        "texte": "Je t'assure que c'est bien moi, Antoine ! Puis j'ai déjà 26 ans, je sais que je suis jeune mais quand-même. Mais mamie, tu sais, ça fait déjà 15 ans que papi nous a quittés.",
+        "next": "5C-rp-suite-2"
       },
       {
-        "id": "5D-fin-reconnait",
+        "id": "5C-rp-suite-2",
         "type": "auto",
-        "video": "videos/jour5/salon.mp4",
-        "audio": "audio/DIALOGUES/jour5/5D-fin.mp3",
-        "texte": "Vous rejoignez l’appartement avec votre petit-fils. Vous ne vous souvenez pas d'avoir habité ici, car dans cette ruelle, toutes les maisons se ressemblent. Une fois à l’intérieur, votre petit-fils vous aide avec une poignée de tâches que vous ne vous rappelez pas devoir faire.",
-        "next": "5DA-fin-reconnait"
+        "video": "videos/jour5/pieceSoir.mp4",
+        "audio": "audio/DIALOGUES/jour5/5C-pg-d2.mp3",
+        "bruitage": null,
+        "texte": "Vous balbutiez pendant un moment, impossible de trouver une réponse convenable pour le jeune homme face à vous. Comme si on vous avait vidé de vos forces. Vous prenez son bras pour vous rendre à l'intérieur, loin de la lumière aveuglante du soleil.",
+        "next": "5D-fin-rp"
       },
       {
-        "id": "5DA-fin-reconnait",
+        "id": "5D-fin-rp",
         "type": "auto",
-        "video": "videos/jour5/salon.mp4",
-        "audio": "audio/DIALOGUES/jour5/5D-fin.mp3",
+        "video": "videos/jour5/pieceSoir.mp4",
+        "audio": "audio/DIALOGUES/jour5/5D-fin-rp.mp3",
+        "bruitage": null,
         "texte": "Pour vous, la nuit est tombée très vite - pour votre petit-fils, il est déjà tard quand il quitte votre appartement pour vous laisser dormir.",
         "next": "FIN-JOUR-5"
       },
       {
-        "id": "5D-fin-reconnait-pas",
+        "id": "5D-fin",
         "type": "auto",
-        "video": "videos/jour5/salon.mp4",
-        "audio": "audio/DIALOGUES/jour5/5D-fin-rp.mp3",
-        "texte": "Vous balbutiez pendant un moment, impossible de trouver une réponse convenable pour le jeune homme face à vous. Comme si on vous avait vidé de vos forces.",
-        "next": "5DA-fin-reconnait-pas"
-      },
-      {
-        "id": "5DA-fin-reconnait-pas",
-        "type": "auto",
-        "video": "videos/jour5/salon.mp4",
-        "audio": "audio/DIALOGUES/jour5/5D-fin-rp.mp3",
-        "texte": "Vous prenez son bras (ou du moins, il prend votre bras) pour vous rendre à l’intérieur, loin de la lumière aveuglante du soleil.",
-        "next": "5DB-fin-reconnait-pas"
-      },
-      {
-        "id": "5DB-fin-reconnait-pas",
-        "type": "auto",
-        "video": "videos/jour5/salon.mp4",
-        "audio": "audio/DIALOGUES/jour5/5D-fin-rp.mp3",
+        "video": "videos/jour5/pieceSoir.mp4",
+        "audio": "audio/DIALOGUES/jour5/5D-fin.mp3",
+        "bruitage": null,
         "texte": "Pour vous, la nuit est tombée très vite - pour votre petit-fils, il est déjà tard quand il quitte votre appartement pour vous laisser dormir.",
         "next": "FIN-JOUR-5"
       },
@@ -924,82 +892,77 @@
       {
         "id": "6A",
         "type": "auto",
-        "video": "videos/jour6/nuit.mp4",
+        "video": "videos/jour6/horloge.mp4",
         "audio": "audio/DIALOGUES/jour6/6A.mp3",
-        "texte": "Le calendrier affiche le 25 septembre 2013. Vous errez dans l’obscurité, encore et encore, sans trouver votre chemin. Puis vous vous recouchez, encore et encore. Votre nuit est fragmentée en une succession de réveils répétés.",
+        "bruitage": null,
+        "texte": "Le calendrier affiche le 25 septembre 2013. Vous errez dans l'obscurité, encore et encore, sans trouver votre chemin. Puis vous vous recouchez, encore et encore. Votre nuit est fragmentée en une succession de réveils répétés.",
         "next": "6A-suite"
       },
       {
         "id": "6A-suite",
         "type": "auto",
-        "video": "videos/jour6/chambre.mp4",
+        "video": "videos/jour6/piece2.mp4",
         "audio": "audio/DIALOGUES/jour6/6A-suite.mp3",
-        "texte": "Quand le soleil semble s’être levé, vous enfilez des vêtements chauds, ou trop légers ? Vous ne savez pas vraiment comment l’on est censé s’habiller en ▅▅▅▅.",
+        "bruitage": "audio/BRUITAGES/JOUR 6/j6-shabiller.mp3",
+        "texte": "Quand le soleil semble s'être levé, vous enfilez des vêtements chauds, ou trop légers ? Vous ne savez pas vraiment comment l'on est censé s'habiller en ▅▅▅▅.",
         "next": "6A-habiller"
       },
       {
         "id": "6A-habiller",
         "type": "auto",
-        "video": "videos/jour6/chambre.mp4",
+        "video": "videos/jour6/piece2.mp4",
         "audio": "audio/DIALOGUES/jour6/6A-habiller.mp3",
-        "texte": "Vous finissez par enfiler une fine chemise, tout en oubliant que vous aviez déjà mis un pull juste avant.",
-        "next": "6A-perdu"
+        "bruitage": "audio/BRUITAGES/JOUR 6/j6-shabiller.mp3",
+        "texte": "Vous finissez par enfiler une fine chemise, tout en oubliant que vous aviez déjà mis un pull juste avant. Vous faites les cents pas dans la maison, persuadée que vous aviez quelque chose de prévu aujourd'hui. C'est peut-être aujourd'hui, le mariage de votre ▅▅, non ?",
+        "next": "6B"
       },
       {
-        "id": "6A-perdu",
+        "id": "6B",
         "type": "auto",
-        "video": "videos/jour6/chambre.mp4",
-        "audio": "audio/DIALOGUES/jour6/6A-habiller.mp3",
-        "texte": "Vous faites les cents pas dans la maison, persuadée que vous aviez quelque chose de prévu aujourd’hui. C’est peut-être aujourd’hui, le mariage de votre ▅▅, non ?",
-        "next": "6B-choix-laver"
+        "video": "videos/jour6/piece.mp4",
+        "audio": "audio/DIALOGUES/jour6/6B.mp3",
+        "bruitage": null,
+        "texte": " Si tel est le cas, vous feriez mieux de vous laver.",
+        "next": "6C-choix"
       },
-
-      //
-      //
-      //
       {
-        "id": "6B-choix-laver",
+        "id": "6C-choix",
         "type": "choice",
         "key": "D",
-        "timer": 8000,
-        "video": "videos/jour6/sdb.mp4",
+        "timer": 6000,
+        "video": "videos/jour6/piece.mp4",
         "audio": null,
-        "texte": "Si tel est le cas, vous feriez mieux de vous laver.",
+        "texte": "Se laver ?",
         "next": {
-          "success": "6B-lave",
-          "timeout": "6B-pas-lave"
+          "success": "6C",
+          "timeout": "6C"
         }
-      },
-      {
-        "id": "6B-lave",
-        "type": "auto",
-        "video": "videos/jour6/transition.mp4",
-        "audio": "audio/DIALOGUES/jour6/6B-lave.mp3",
-        "texte": null,
-        "next": "6C"
-      },
-      {
-        "id": "6B-pas-lave",
-        "type": "auto",
-        "video": "videos/jour6/transition.mp4",
-        "audio": "audio/DIALOGUES/jour6/6B-pas-lave.mp3",
-        "texte": null,
-        "next": "6C"
       },
       {
         "id": "6C",
         "type": "auto",
-        "video": "videos/jour6/chambre.mp4",
+        "video": "videos/jour6/transitionDoucheAlit.mp4",
         "audio": "audio/DIALOGUES/jour6/6C.mp3",
-        "texte": "Vous vous réveillez dans votre lit, après une nuit trouble. En vous levant, vous sentez une odeur désagréable. Vous réalisez soudain que vos vêtements sont souillés.",
+        "bruitage": null,
+        "texte": "Vous vous réveillez dans votre lit, après une nuit trouble, parsemée de réveils. En vous redressant, vous vous rendez-compte que votre couche de vêtements vous donne affreusement chaud. \nEn vous levant, vous sentez une odeur désagréable venir vous piquer les narines. Vous réalisez soudain que vos vêtements sont souillés. Une odeur forte et écoeurante s'échappe de votre culotte ; vous ne vous en étiez même pas rendu compte, mais votre corps a lâché avant votre esprit.",
         "next": "6C-suite"
       },
       {
         "id": "6C-suite",
         "type": "auto",
-        "video": "videos/jour6/chambre.mp4",
+        "video": "videos/jour6/lit.mp4",
         "audio": "audio/DIALOGUES/jour6/6C-suite.mp3",
-        "texte": "Vous restez figée sur le bord du lit. Vos mains tremblent tellement qu'elles ne semblent plus vous appartenir.",
+        "bruitage": null,
+        "texte": "Vous restez figée sur le bord du lit. La sensation d'humidité contre votre peau vous fige. Vous baissez les yeux sur vos mains : elles tremblent tellement qu'elles ne semblent plus vous appartenir. \nVous semblez entendre du bruit, un verrou ? La porte ? Ou est-ce simplement le vent ? Votre esprit s’emballe. ",
+        "next": "6D"
+      },
+      {
+        "id": "6D",
+        "type": "auto",
+        "video": "videos/jour6/piece.mp4",
+        "audio": "audio/DIALOGUES/jour6/6D.mp3",
+        "bruitage": "audio/BRUITAGES/JOUR 6/j6-portefermee.mp3",
+        "texte": "Vous restez figée sur le bord du lit. Vous semblez entendre du bruit, un verrou ? La porte ? Ou est-ce simplement le vent ? Votre esprit s'emballe.",
         "next": "6D"
       },
       {
@@ -1007,6 +970,7 @@
         "type": "auto",
         "video": "videos/jour6/porte.mp4",
         "audio": "audio/DIALOGUES/jour6/6D.mp3",
+        "bruitage": "audio/BRUITAGES/JOUR 6/j6-portefermee.mp3",
         "texte": "Qui est là ? Arrêtez de vous cacher, je vous entends.",
         "next": "6D-paranoia"
       },
@@ -1015,7 +979,8 @@
         "type": "auto",
         "video": "videos/jour6/porte.mp4",
         "audio": "audio/DIALOGUES/jour6/6D-paranoia.mp3",
-        "texte": "La paranoïa s'installe. Dans votre tête, ce n'est pas un oubli de votre part ; ça doit être un complot. On vous a murée vive.",
+        "bruitage": "audio/BRUITAGES/JOUR 6/j6-portefermee.mp3",
+        "texte": "La paranoïa s'installe. Pourquoi la porte est-elle fermée ? Vous essayez de tourner la poignée, mais vos mains sont trop faibles. Dans votre tête, ce n'est pas un oubli de votre part ; ça doit être un complot. On vous a murée vive.",
         "next": "6D-cri"
       },
       {
@@ -1023,74 +988,115 @@
         "type": "auto",
         "video": "videos/jour6/porte.mp4",
         "audio": "audio/DIALOGUES/jour6/6D-cri.mp3",
+        "bruitage": "audio/BRUITAGES/JOUR 6/j6-vent.mp3",
         "texte": "Laissez-moi sortir ! Je dois aller à ▅▅▅▅ retrouver ▅▅",
-        "blurred": ["▅▅▅▅", "▅▅"],
         "next": "6E"
       },
       {
         "id": "6E",
         "type": "auto",
-        "video": "videos/jour6/exterieur.mp4",
+        "video": "videos/jour6/transitionDehors.mp4",
         "audio": "audio/DIALOGUES/jour6/6E.mp3",
-        "texte": "Le monde vous semble immense et les trottoirs tanguent sous vos pieds. Vous marchez, le dos voûté, hésitante. À vrai dire, vous ne savez plus ce que vous cherchiez…",
+        "bruitage": "audio/BRUITAGES/JOUR 6/j6-vent.mp3",
+        "texte": "Le monde vous semble immense et les trottoirs tanguent sous vos pieds. Vous marchez, le dos voûté, hésitante. Vos mains s'appuient sur les bords des murs que vous rencontrez, mais à vrai dire, vous ne savez plus ce que vous cherchiez…",
+        "next": "6E-peur"
+      },
+      {
+        "id": "6E-peur",
+        "type": "auto",
+        "video": "videos/jour6/transitionDehors.mp4",
+        "audio": "audio/DIALOGUES/jour6/voisine-peur.mp3",
+        "bruitage": "audio/BRUITAGES/JOUR 6/j6-vent.mp3",
+        "texte": "Une ombre se penche sur vous. Elle vous semble immense. Vous vous recroquevillez, protégeant votre visage de vos mains",
         "next": "6E-voisine"
       },
       {
         "id": "6E-voisine",
         "type": "auto",
-        "video": "videos/jour6/exterieur.mp4",
+        "video": null,
         "audio": "audio/DIALOGUES/jour6/6E-voisine.mp3",
-        "texte": "Madame ? Oh mon Dieu, la vieille du premier ? Vous êtes gelée.",
+        "bruitage": null,
+        "texte": "Madame ? Oh mon Dieu, la vieille du premier ? C'est la voisine du troisième... Vous êtes gelée.",
         "next": "6E-reponse"
       },
       {
         "id": "6E-reponse",
         "type": "auto",
-        "video": "videos/jour6/exterieur.mp4",
+        "video": null,
         "audio": "audio/DIALOGUES/jour6/6E-reponse.mp3",
-        "texte": "Je veux rentrer... La clé ne marche plus... Ils ont changé les ▅▅▅▅.",
-        "blurred": ["▅▅▅▅"],
+        "bruitage": null,
+        "texte": "Je.. je veux rentrer... La clé ne marche plus... Ils ont changé les ▅▅▅▅.",
+        "next": "6E-aide"
+      },
+      {
+        "id": "6E-aide",
+        "type": "auto",
+        "video": null,
+        "audio": "audio/DIALOGUES/jour6/voisine-aide.mp3",
+        "bruitage": null,
+        "texte": "La femme vous aide à vous lever. Votre poids est lourd pour vous mais léger pour les autres. Elle vous soutient, et vous vous laissez traîner, incapable de coordonner vos pas.",
         "next": "6F"
       },
       {
         "id": "6F",
         "type": "auto",
-        "video": "videos/jour6/salon.mp4",
+        "video": "videos/jour6/piece2.mp4",
         "audio": "audio/DIALOGUES/jour6/6F.mp3",
-        "texte": "Le décor a changé. Ou alors, c'est votre regard. Les meubles sont les mêmes, mais ils vous semblent étrangers. Une femme (votre ▅▅▅ ?) est en train de frotter le sol de la chambre avec acharnement. Elle pleure en frottant.",
-        "blurred": ["▅▅▅"],
-        "next": "6F-medicaments"
+        "bruitage": "audio/BRUITAGES/JOUR 6/j6-fillepleure.mp3",
+        "texte": "Le décor a changé. Ou alors, c'est votre regard. Les meubles sont les mêmes, mais ils vous semblent étrangers. Une femme (votre ▅▅▅ ?) est en train de frotter le sol de la chambre avec acharnement. Elle ne vous regarde pas. Elle pleure en frottant.",
+        "next": "6F-meds"
       },
       {
-        "id": "6F-medicaments",
+        "id": "6F-meds",
         "type": "auto",
-        "video": "videos/jour6/salon.mp4",
-        "audio": "audio/DIALOGUES/jour6/6F-meds.mp3",
-        "texte": "Allez maman... prends-les. Ça va t'aider à ne plus te perdre.",
-        "next": "6F-suite"
-      },
-      {
-        "id": "6F-suite",
-        "type": "auto",
-        "video": "videos/jour6/salon.mp4",
-        "audio": "audio/DIALOGUES/jour6/6F-suite.mp3",
-        "texte": "Est-ce que ▅▅▅▅ est venu ? Il devait m'apporter des pierogis pour le train de demain, tu viens toujours avec nous à Moscou ?",
-        "blurred": ["▅▅▅▅"],
+        "video": "videos/jour6/piece2.mp4",
+        "audio": "audio/DIALOGUES/jour6/fille-meds.mp3",
+        "bruitage": "audio/BRUITAGES/JOUR 6/j6-fillepleure.mp3",
+        "texte": "Elle se lève et s'approche de vous avec un verre d'eau et une petite coupelle en plastique contenant des ▅▅▅▅.",
         "next": "6F-fille"
       },
       {
         "id": "6F-fille",
         "type": "auto",
-        "video": "videos/jour6/salon.mp4",
-        "audio": "audio/DIALOGUES/jour6/6F-fille.mp3",
-        "texte": "Oui maman. Il est venu. Repose-toi maintenant.",
-        "next": "6G"
+        "video": "videos/jour6/piece2.mp4",
+        "audio": "audio/DIALOGUES/jour6/6F-meds.mp3",
+        "bruitage": null,
+        "texte": "Allez maman... prends-les. Ça va t'aider à ne plus te perdre.",
+        "next": "6F-prise-meds"
       },
       {
-        "id": "6G",
+        "id": "6F-prise-meds",
         "type": "auto",
-        "video": "videos/jour6/nuit.mp4",
+        "video": "videos/jour6/pieceSoir.mp4",
+        "audio": "audio/DIALOGUES/jour6/prise-meds.mp3",
+        "bruitage": "audio/BRUITAGES/JOUR 6/j6-fillepleure.mp3",
+        "texte": "Vous ouvrez la bouche par réflexe, comme un petit oiseau. Le goût est amer.",
+        "next": "6F-suite"
+      },
+      {
+        "id": "6F-suite",
+        "type": "auto",
+        "video": "videos/jour6/pieceSoir.mp4",
+        "audio": "audio/DIALOGUES/jour6/6F-suite.mp3",
+        "bruitage": null,
+        "texte": "Est-ce que ▅▅▅▅ est venu ? Il devait m'apporter des pierogis pour le train de demain, tu viens toujours avec nous à Moscou ?",
+        "next": "6G-fille"
+      },
+      {
+        "id": "6G-fille",
+        "type": "auto",
+        "video": "videos/jour6/lit.mp4",
+        "audio": "audio/DIALOGUES/jour6/6F-fille.mp3",
+        "bruitage": null,
+        "texte": "Oui maman. Il est venu. Repose-toi maintenant.",
+        "next": "6G-fin"
+      },
+      {
+        "id": "6G-fin",
+        "type": "auto",
+        "video": "videos/jour6/lit.mp4",
         "audio": "audio/DIALOGUES/jour6/6G.mp3",
+        "bruitage": null,
         "texte": "Vous regardez vos mains posées sur la couverture. Elles ne tremblent plus. Elles ne font plus rien du tout. Le silence revient.",
         "next": "FIN-JOUR-6"
       },
@@ -1108,144 +1114,156 @@
       {
         "id": "7A",
         "type": "auto",
-        "video": "videos/jour7/fauteuil.mp4",
+        "video": "videos/jour7/piece.mp4",
         "audio": "audio/DIALOGUES/jour7/7A.mp3",
-        "texte": "Le calendrier indique le 21 septembre 2015. Mais pour vous, les chiffres ne sont plus que des traits sans sens. La lumière qui traverse la fenêtre est ▅▅▅▅. Est-ce le matin ? Est-ce le soir ?",
-        "blurred": ["▅▅▅▅"],
-        "next": "7A-suite"
+        "bruitage": "audio/BRUITAGES/JOUR 7/j7-fond.mp3",
+        "texte": "Le calendrier indique le 21 septembre 2015. Mais pour vous, les chiffres ne sont plus que des traits sans sens, comme des mots figés sur du papier. La lumière qui traverse la fenêtre est ▅▅▅▅. Est-ce le matin ? Est-ce le soir ?",
+        "next": "7B"
       },
       {
         "id": "7A-suite",
         "type": "auto",
-        "video": "videos/jour7/fauteuil.mp4",
+        "video": "videos/jour7/lit.mp4",
         "audio": "audio/DIALOGUES/jour7/7A-suite.mp3",
-        "texte": "Vous êtes assise dans votre fauteuil, mais vos muscles sont comme du bois mort, raides et inflexibles. Votre tête penche sur le côté. Le message se perd quelque part entre votre vouloir et vos membres.",
+        "bruitage": "audio/BRUITAGES/JOUR 7/j7-fond.mp3",
+        "texte": "Vous êtes assise dans votre fauteuil, mais vos muscles sont comme du bois mort, raides et inflexibles. Votre tête penche sur le côté. Vous essayez de la redresser, mais le message se perd quelque part entre votre vouloir et vos membres.",
         "next": "7B"
       },
       {
         "id": "7B",
         "type": "choice",
         "key": "L",
-        "timer": 8000,
-        "video": "videos/jour7/piece.mp4",
+        "timer": 7000,
+        "video": "videos/jour7/lit.mp4",
         "audio": null,
+        "bruitage": "audio/BRUITAGES/JOUR 7/j7-fond.mp3",
         "texte": "Observer la pièce ?",
         "next": {
           "success": "7B-observe",
-          "timeout": "7C"
+          "timeout": "7B-gorge"
         }
       },
       {
         "id": "7B-observe",
         "type": "auto",
-        "video": "videos/jour7/piece.mp4",
+        "video": "videos/jour7/piece2.mp4",
         "audio": "audio/DIALOGUES/jour7/7B-observe.mp3",
-        "texte": "Le papier peint semble bouger. Les motifs de fleurs se détachent du mur et flottent dans l'air comme des ▅▅▅▅. Vous voyez des silhouettes au coin de l'œil, des gens que vous avez aimés, qui passent dans le couloir sans un bruit. Vous n'avez pas peur. Ce sont vos invités.",
-        "blurred": ["▅▅▅▅"],
+        "bruitage": "audio/BRUITAGES/JOUR 7/j7-motscensure.mp3",
+        "texte": "Le papier peint semble bouger. Les motifs se détachent du mur et flottent dans l'air comme des ▅▅▅▅. Vous voyez des silhouettes au coin de l'œil, des gens que vous avez aimés en 1950, en 1980, qui passent dans le couloir sans un bruit. Vous n'avez pas peur. Ce sont vos invités.",
         "next": "7B-gorge"
       },
       {
         "id": "7B-gorge",
         "type": "auto",
-        "video": "videos/jour7/piece.mp4",
+        "video": "videos/jour7/pieceSoir.mp4",
         "audio": "audio/DIALOGUES/jour7/7B-gorge.mp3",
-        "texte": "Soudain, une sensation de brûlure dans votre gorge. Vous avez oublié comment ▅▅▅▅. La salive s'accumule, mais le réflexe de déglutition ne vient pas.",
-        "blurred": ["▅▅▅▅"],
+        "bruitage": "audio/BRUITAGES/JOUR 7/j7-toux.mp3",
+        "texte": "Soudain, une sensation de brûlure dans votre gorge. Vous avez oublié comment ▅▅▅▅. La salive s'accumule, mais le réflexe de déglutition ne vient pas. Vous toussez un son sec, fragile, qui semble briser le silence de la pièce.",
         "next": "7C"
       },
       {
         "id": "7C",
         "type": "auto",
-        "video": "videos/jour7/visite.mp4",
+        "video": "videos/jour7/porte.mp4",
         "audio": "audio/DIALOGUES/jour7/7C.mp3",
-        "texte": "C'est votre petit-fils. Il entre avec un bouquet de ▅▅▅▅. Il sourit, mais c'est un sourire qui tremble, un sourire qui fait mal à voir.",
-        "blurred": ["▅▅▅▅"],
-        "next": "7C-dialogue-1"
+        "bruitage": "audio/BRUITAGES/JOUR 7/j7-fond.mp3",
+        "texte": "C'est votre petit-fils. Il entre avec un bouquet de ▅▅▅▅. Il sourit, mais c'est un sourire qui tremble, un sourire qui fait mal à voir. Il s'approche de votre fauteuil. Il prend votre main, mais vous ne sentez pas la chaleur de sa peau. Pour vous, c'est juste une pression lointaine.",
+        "next": "7C-d1"
       },
       {
-        "id": "7C-dialogue-1",
+        "id": "7C-d1",
         "type": "auto",
-        "video": "videos/jour7/visite.mp4",
+        "video": "videos/jour7/pieceSoir.mp4",
         "audio": "audio/DIALOGUES/jour7/7C-d1.mp3",
+        "bruitage": "audio/BRUITAGES/JOUR 7/j7-fond.mp3",
         "texte": "Salut mamie... C'est moi. Je t'ai apporté des fleurs. Tu sens ? Elles sentent comme ton jardin d'autrefois.",
         "next": "7C-regard"
       },
       {
         "id": "7C-regard",
         "type": "auto",
-        "video": "videos/jour7/visite.mp4",
+        "video": null,
         "audio": "audio/DIALOGUES/jour7/7C-regard.mp3",
+        "bruitage": "audio/BRUITAGES/JOUR 7/j7-fond.mp3",
         "texte": "Vous le regardez. Vos yeux se posent sur lui, mais ils ne se fixent pas. Vous voyez un visage, mais les traits se mélangent. Est-ce votre mari ? Votre fils ? Un étranger ?",
-        "next": "7C-dialogue-2"
+        "next": "7C-d2"
       },
       {
-        "id": "7C-dialogue-2",
+        "id": "7C-d2",
         "type": "auto",
-        "video": "videos/jour7/visite.mp4",
+        "video": null,
         "audio": "audio/DIALOGUES/jour7/7C-d2.mp3",
+        "bruitage": "audio/BRUITAGES/JOUR 7/j7-fond.mp3",
         "texte": "Le... le train... ▅▅▅▅ arrive bientôt ?",
-        "blurred": ["▅▅▅▅"],
-        "next": "7C-dialogue-3"
+        "next": "7C-d3"
       },
       {
-        "id": "7C-dialogue-3",
+        "id": "7C-d3",
         "type": "auto",
-        "video": "videos/jour7/visite.mp4",
+        "video": "videos/jour7/pieceSoir.mp4",
         "audio": "audio/DIALOGUES/jour7/7C-d3.mp3",
+        "bruitage": "audio/BRUITAGES/JOUR 7/j7-fond.mp3",
         "texte": "Oui, mamie. Le train arrive. On va bientôt partir.",
         "next": "7C-pensee"
       },
       {
         "id": "7C-pensee",
         "type": "auto",
-        "video": "videos/jour7/visite.mp4",
+        "video": null,
         "audio": "audio/DIALOGUES/jour7/7C-pensee.mp3",
-        "texte": "Il vous regarde, et dans ses yeux, vous voyez qu'il comprend. Il ne voit plus la femme qui cuisinait des pierogis ou qui grondait les enfants. Il voit une enveloppe vide.",
+        "bruitage": "audio/BRUITAGES/JOUR 7/j7-fond.mp3",
+        "texte": "Il vous regarde, et dans ses yeux, vous voyez qu'il comprend. Il ne voit plus la femme qui cuisinait des pierogis ou qui grondait les enfants. Il voit une enveloppe vide. Le train arrive en gare et ne porte pas de faux. Elle a juste effacé votre nom du tableau.",
         "next": "7D"
       },
       {
         "id": "7D",
         "type": "auto",
-        "video": "videos/jour7/fauteuil.mp4",
+        "video": "videos/jour7/pieceSoir.mp4",
         "audio": "audio/DIALOGUES/jour7/7D.mp3",
-        "texte": "Votre petit-fils pose sa tête sur vos genoux et pleure en silence. Vous voudriez lever la main pour caresser ses cheveux, lui dire que ce n'est pas grave. Mais vos bras restent immobiles.",
+        "bruitage": "audio/BRUITAGES/JOUR 7/j7-fin.mp3",
+        "texte": "Votre petit-fils pose sa tête sur vos genoux et pleure en silence. Vous voudriez lever la main pour caresser ses cheveux, lui dire que ce n'est pas grave, que vous avez juste fini votre ▅▅▅▅. Mais vos bras restent immobiles, cloués par cette raideur implacable.",
         "next": "7E"
       },
       {
         "id": "7E",
         "type": "auto",
-        "video": "videos/jour7/lumiere.mp4",
+        "video": "videos/jour7/lit.mp4",
         "audio": "audio/DIALOGUES/jour7/7E.mp3",
-        "texte": "Alors, vous décidez de fermer les yeux à l'intérieur de vous-même. Soudain, le brouillard s'écarte. Vous ne sentez plus le poids de vos os, ni l'odeur de la chambre, ni la raideur de vos muscles.",
+        "bruitage": "audio/BRUITAGES/JOUR 7/j7-finalt.mp3",
+        "texte": "Alors, vous décidez de fermer les yeux à l'intérieur de vous-même. \nSoudain, le brouillard s'écarte. Vous ne sentez plus le poids de vos os, ni l'odeur de la chambre, ni la raideur de vos muscles. ",
         "next": "7E-souvenir"
       },
       {
         "id": "7E-souvenir",
         "type": "auto",
-        "video": "videos/jour7/lumiere.mp4",
+        "video": "videos/jour7/lit.mp4",
         "audio": "audio/DIALOGUES/jour7/7E-souvenir.mp3",
-        "texte": "Dans votre esprit, vous êtes debout. Vous portez votre robe préférée, celle du 3 octobre 2005. L'appartement est baigné d'une lumière dorée. L'ampoule du couloir est réparée. L'odeur des pierogis chauds embaume toute la cuisine.",
-        "next": "7F"
+        "bruitage": "audio/BRUITAGES/JOUR 7/j7-finalt.mp3",
+        "texte": "Dans votre esprit, vous êtes debout. Vous portez votre robe préférée, celle du 3 octobre 2005. L'appartement est baigné d'une lumière dorée. L'ampoule du couloir est réparée. L'odeur des pierogis chauds embaume toute la cuisine. ",
+        "next": "7E-souvenir"
       },
       {
         "id": "7F",
         "type": "auto",
-        "video": "videos/jour7/lumiere.mp4",
+        "video": null,
         "audio": "audio/DIALOGUES/jour7/7F.mp3",
+        "bruitage": "audio/BRUITAGES/JOUR 7/j7-finalt.mp3",
         "texte": "N'oublie pas... la petite lampe... de l'entrée...",
         "next": "7G"
       },
       {
         "id": "7G",
         "type": "auto",
-        "video": "videos/jour7/fin.mp4",
+        "video": "videos/jour7/pieceSoir.mp4",
         "audio": "audio/DIALOGUES/jour7/7G.mp3",
-        "texte": "Vous êtes devenue un souvenir. Un beau souvenir, lumineux et intact, qui ne s'effacera jamais du cœur de ceux qui restent. Le silence est désormais complet. Une paix immense vous enveloppe, comme une douche chaude après une trop longue journée.",
-        "next": "FIN"
+        "bruitage": "audio/BRUITAGES/JOUR 7/j7-finalt.mp3",
+        "texte": "Vous êtes devenue un souvenir. Un beau souvenir, lumineux et intact, qui ne s'effacera jamais du cœur de ceux qui restent, même si le vôtre s'est arrêté de compter les jours. \nLe silence est désormais complet. Une paix immense vous enveloppe, comme une douche chaude après une trop longue journée.",
+        "next": "FIN-JOUR-7"
       },
       {
-        "id": "FIN",
-        "type": "fin-experience"
+        "id": "FIN-JOUR-7",
+        "type": "fin-jour",
+        "nextJour": null
       }
     ]
   }
