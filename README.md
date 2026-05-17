@@ -1,12 +1,18 @@
 # Problèmes/À régler
 
+## Code
+
 Page how-to -> makeymakey
 A propos -> changer nos desc
 
-Audio
+Day titles disappear too fast
+
+## Audio
+
 2C-errer - manque
 
-Visuel
+## Visuel
+
 Pas de visuels lors des dialogues
 
 3C-trouve - Liste
